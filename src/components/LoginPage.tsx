@@ -16,17 +16,17 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const canvasElement = canvasRef.current;
+    if (!canvasElement) return;
 
-    const context = canvas.getContext('webgl') ?? canvas.getContext('experimental-webgl');
+    const context = canvasElement.getContext('webgl') ?? canvasElement.getContext('experimental-webgl');
     if (!context || !('createShader' in context)) return;
     const gl = context as WebGLRenderingContext;
 
     function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      gl.viewport(0, 0, canvas.width, canvas.height);
+      canvasElement.width = window.innerWidth;
+      canvasElement.height = window.innerHeight;
+      gl.viewport(0, 0, canvasElement.width, canvasElement.height);
     }
 
     window.addEventListener('resize', resizeCanvas);
@@ -172,7 +172,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
       gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
       gl.vertexAttribPointer(positionLoc, 2, gl.FLOAT, false, 0, 0);
       gl.uniform1f(timeLoc, seconds);
-      gl.uniform2f(resolutionLoc, canvas.width, canvas.height);
+      gl.uniform2f(resolutionLoc, canvasElement.width, canvasElement.height);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
 
       animationFrameId = window.requestAnimationFrame(render);
