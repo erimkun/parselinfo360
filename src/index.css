@@ -120,51 +120,19 @@
 }
 
 /* Login aurora/wave background */
-.login-aurora-bg {
-  background: radial-gradient(circle at 20% 15%, #0c1736 0%, #080b19 38%, #060815 100%);
+.login-aurora-root {
+  background: #0a0a0f;
 }
 
-.login-wave {
-  position: absolute;
-  left: -25%;
-  width: 150%;
-  height: 45%;
-  border-radius: 9999px;
-  filter: blur(54px);
-  opacity: 0.52;
-  transform-origin: center;
-  animation: login-wave-float 13s ease-in-out infinite;
+.login-aurora-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
 }
 
-.login-wave-cyan {
-  top: 10%;
-  background: linear-gradient(90deg, rgba(18, 193, 219, 0.1) 0%, rgba(18, 193, 219, 0.55) 40%, rgba(72, 199, 142, 0.2) 100%);
-}
-
-.login-wave-purple {
-  top: 34%;
-  animation-duration: 16s;
-  animation-delay: -4s;
-  opacity: 0.48;
-  background: linear-gradient(90deg, rgba(180, 96, 255, 0.12) 0%, rgba(123, 67, 255, 0.55) 45%, rgba(60, 50, 130, 0.22) 100%);
-}
-
-.login-wave-emerald {
-  top: 58%;
-  animation-duration: 18s;
-  animation-delay: -8s;
-  opacity: 0.42;
-  background: linear-gradient(90deg, rgba(16, 185, 129, 0.08) 0%, rgba(45, 212, 191, 0.42) 42%, rgba(52, 211, 153, 0.14) 100%);
-}
-
-@keyframes login-wave-float {
-  0% {
-    transform: translate3d(-4%, -8%, 0) rotate(-6deg) scaleX(1.12);
-  }
-  50% {
-    transform: translate3d(5%, 9%, 0) rotate(7deg) scaleX(0.94);
-  }
-  100% {
-    transform: translate3d(-4%, -8%, 0) rotate(-6deg) scaleX(1.12);
-  }
+.login-aurora-overlay {
+  background: radial-gradient(circle at 50% 50%, rgba(18, 33, 56, 0.15) 0%, rgba(10, 10, 15, 0.35) 50%, rgba(6, 8, 14, 0.5) 100%);
 }
