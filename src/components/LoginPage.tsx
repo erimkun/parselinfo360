@@ -55,11 +55,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#080b19] text-white">
+    <div className="relative min-h-screen overflow-hidden login-aurora-bg text-white">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-28 -left-20 h-80 w-80 rounded-full bg-cyan-400/25 blur-3xl" />
-        <div className="absolute top-1/3 -right-28 h-96 w-96 rounded-full bg-purple-500/30 blur-3xl" />
-        <div className="absolute -bottom-20 left-1/3 h-72 w-72 rounded-full bg-emerald-400/20 blur-3xl" />
+        <div className="login-wave login-wave-cyan" />
+        <div className="login-wave login-wave-purple" />
+        <div className="login-wave login-wave-emerald" />
       </div>
 
       <div className="relative z-10 flex min-h-screen items-center justify-center p-4">
@@ -143,11 +143,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
               </button>
             </form>
 
-            <div className="mt-6 border-t border-white/15 pt-5">
-              <p className="text-center text-xs text-white/55">
-                Demo için: <span className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-white/80">1101_8</span> / <span className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-white/80">parsel360</span>
-              </p>
-            </div>
           </div>
         </div>
       </div>
