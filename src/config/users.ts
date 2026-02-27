@@ -1,15 +1,9 @@
 /**
  * Kullanıcı ve Proje Yapılandırması
  * 
- * Bu dosya şimdilik statik kullanıcı verilerini tutar.
- * İleride backend API'den alınacak şekilde güncellenebilir.
- * 
- * Her kullanıcı bir firmayı temsil eder ve bir projeye (ada_parsel) bağlıdır.
- * Veri ilişkileri:
- * - Parsel → ada_parsel (primary key)
- * - POI (Olanaklar) → ada_parsel ile filtrelenir
- * - Service Area → ada_parsel ile filtrelenir
- * - Mahalle verileri → parsel'deki mahalle adı ile ilişkilendirilir
+ * Kullanıcılar .env dosyasından okunur.
+ * Format: VITE_USER_{ada-parsel}=firmaAdi|sifre|projeAdi
+ * Örnek: VITE_USER_1101-8=1101_8|parsel360|Bulgurlu Projesi
  */
 
 export interface User {
@@ -21,51 +15,44 @@ export interface User {
   aktif: boolean;
 }
 
-/**
- * Mock kullanıcı listesi
- * TODO: İleride bu veriler backend API'den gelecek
- */
-export const USERS: User[] = [
-  {
-    id: '1',
-    firmaAdi: '1101_8',
-    sifre: 'parsel360',
-    adaParsel: '1101_8',
-    projeAdi: 'Bulgurlu Projesi',
-    aktif: true
-  },
-  // Yeni projeler eklendiğinde buraya yeni kullanıcılar eklenecek
-  // Örnek:
-  // {
-  //   id: '2',
-  //   firmaAdi: 'ABC_Insaat',
-  //   sifre: 'abc123',
-  //   adaParsel: '2205_12',
-  //   projeAdi: 'Kadıköy Projesi',
-  //   aktif: true
-  // },
-];
+const ENV_PREFIX = 'VITE_USER_';
 
-/**
- * Kullanıcı doğrulama fonksiyonu
- * @param firmaAdi Firma adı
- * @param sifre Şifre
- * @returns Doğrulanmış kullanıcı veya null
- */
+function parseUsersFromEnv(): User[] {
+  const users: User[] = [];
+  let idx = 0;
+
+  for (const [key, value] of Object.entries(import.meta.env)) {
+    if (!key.startsWith(ENV_PREFIX) || typeof value !== 'string') continue;
+
+    const adaParsel = key.slice(ENV_PREFIX.length).replace('-', '_');
+    const parts = value.split('|');
+    if (parts.length < 3) continue;
+
+    const [firmaAdi, sifre, projeAdi] = parts;
+    idx++;
+    users.push({
+      id: String(idx),
+      firmaAdi: firmaAdi.trim(),
+      sifre: sifre.trim(),
+      adaParsel,
+      projeAdi: projeAdi.trim(),
+      aktif: true,
+    });
+  }
+
+  return users;
+}
+
+export const USERS: User[] = parseUsersFromEnv();
+
 export const authenticateUser = (firmaAdi: string, sifre: string): User | null => {
-  const user = USERS.find(
-    u => u.firmaAdi.toLowerCase() === firmaAdi.toLowerCase() && 
-         u.sifre === sifre && 
+  return USERS.find(
+    u => u.firmaAdi.toLowerCase() === firmaAdi.toLowerCase() &&
+         u.sifre === sifre &&
          u.aktif
-  );
-  return user || null;
+  ) ?? null;
 };
 
-/**
- * Firma adına göre kullanıcı bul
- * @param firmaAdi Firma adı
- * @returns Kullanıcı veya null
- */
 export const getUserByFirma = (firmaAdi: string): User | null => {
-  return USERS.find(u => u.firmaAdi.toLowerCase() === firmaAdi.toLowerCase()) || null;
+  return USERS.find(u => u.firmaAdi.toLowerCase() === firmaAdi.toLowerCase()) ?? null;
 };

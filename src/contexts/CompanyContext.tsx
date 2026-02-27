@@ -1,39 +1,71 @@
 import React, { createContext, useContext, useState } from 'react';
 import type { ReactNode } from 'react';
 import type { User } from '../config/users';
+import { USERS } from '../config/users';
+
+const SESSION_KEY = 'parsel360-session';
+const SESSION_DURATION_MS = 7 * 24 * 60 * 60 * 1000; // 7 gün
+
+interface StoredSession {
+  adaParsel: string;
+  expiresAt: number;
+}
+
+function loadSession(): User | null {
+  try {
+    const raw = localStorage.getItem(SESSION_KEY);
+    if (!raw) return null;
+
+    const session: StoredSession = JSON.parse(raw);
+    if (Date.now() > session.expiresAt) {
+      localStorage.removeItem(SESSION_KEY);
+      return null;
+    }
+
+    return USERS.find(u => u.adaParsel === session.adaParsel && u.aktif) ?? null;
+  } catch {
+    localStorage.removeItem(SESSION_KEY);
+    return null;
+  }
+}
+
+function saveSession(user: User) {
+  const session: StoredSession = {
+    adaParsel: user.adaParsel,
+    expiresAt: Date.now() + SESSION_DURATION_MS,
+  };
+  localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+}
+
+function clearSession() {
+  localStorage.removeItem(SESSION_KEY);
+}
 
 interface CompanyContextType {
-  /** Giriş yapan kullanıcı bilgileri */
   user: User | null;
-  /** Firma adı (user.firmaAdi'nin kısayolu) */
   company: string | null;
-  /** Ada/Parsel bilgisi - veri filtreleme için ana key */
   adaParsel: string | null;
-  /** Giriş fonksiyonu */
   login: (user: User) => void;
-  /** Çıkış fonksiyonu */
   logout: () => void;
-  /** Legacy setter (geriye uyumluluk için) */
   setCompany: (name: string) => void;
 }
 
 const CompanyContext = createContext<CompanyContextType | undefined>(undefined);
 
 export const CompanyProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(() => loadSession());
 
   const login = (userData: User) => {
     setUser(userData);
+    saveSession(userData);
   };
 
   const logout = () => {
     setUser(null);
+    clearSession();
   };
 
-  // Legacy setter - geriye uyumluluk için (artık login kullanılmalı)
-  const setCompany = (name: string) => {
-    // Bu fonksiyon artık doğrudan kullanılmamalı
-    // Eski kodlarla uyumluluk için bırakıldı
+  const setCompany = (_name: string) => {
     console.warn('setCompany deprecated, use login() instead');
   };
 
