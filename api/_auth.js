@@ -1,4 +1,4 @@
-const crypto = require('crypto');
+import crypto from 'node:crypto';
 
 const ENV_PREFIX = 'USER_';
 const SESSION_COOKIE = 'parsel360_session';
@@ -86,7 +86,7 @@ function readCookie(req, name) {
   return pair.slice(name.length + 1);
 }
 
-module.exports = {
+export {
   SESSION_COOKIE,
   SESSION_TTL_MS,
   parseUsersFromServerEnv,

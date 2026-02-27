@@ -1,12 +1,12 @@
-const {
+import {
   SESSION_COOKIE,
   SESSION_TTL_MS,
   parseUsersFromServerEnv,
   createSessionToken,
   serializeCookie,
-} = require('./_auth');
+} from './_auth.js';
 
-module.exports = (req, res) => {
+export default function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, message: 'Method not allowed' });
   }
@@ -31,4 +31,4 @@ module.exports = (req, res) => {
   const token = createSessionToken(safeUser);
   res.setHeader('Set-Cookie', serializeCookie(SESSION_COOKIE, token, Math.floor(SESSION_TTL_MS / 1000)));
   return res.status(200).json({ success: true, user: safeUser });
-};
+}

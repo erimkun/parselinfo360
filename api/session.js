@@ -1,6 +1,6 @@
-const { SESSION_COOKIE, verifySessionToken, readCookie } = require('./_auth');
+import { SESSION_COOKIE, verifySessionToken, readCookie } from './_auth.js';
 
-module.exports = (req, res) => {
+export default function handler(req, res) {
   if (req.method !== 'GET') {
     return res.status(405).json({ success: false, message: 'Method not allowed' });
   }
@@ -12,4 +12,4 @@ module.exports = (req, res) => {
   }
 
   return res.status(200).json({ success: true, user });
-};
+}
