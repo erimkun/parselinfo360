@@ -19,8 +19,9 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-    if (!gl) return;
+    const context = canvas.getContext('webgl') ?? canvas.getContext('experimental-webgl');
+    if (!context || !('createShader' in context)) return;
+    const gl = context as WebGLRenderingContext;
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
