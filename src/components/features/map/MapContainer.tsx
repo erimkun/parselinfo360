@@ -344,7 +344,7 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
     };
 
     return (
-        <div className="absolute inset-0 z-0 bg-gray-100 dark:bg-gray-800 light:bg-gray-100">
+        <div className="absolute inset-0 bg-gray-100 dark:bg-gray-800 light:bg-gray-100">
             <PacketMapContainer
                 center={center}
                 zoom={14}
@@ -528,8 +528,8 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
                 onFocus={() => setFocusTrigger(prev => prev + 1)}
             />
 
-            {/* Service Area & Trip Layer Buttons - Top Left */}
-            <div className="absolute top-6 left-6 z-[1000] flex flex-col sm:flex-row gap-2">
+            {/* Service Area & Trip Layer Buttons - Top Left (sidebar sonrasına konumlandırıldı) */}
+            <div className="absolute top-6 left-6 lg:left-[calc(40%+1.5rem)] z-[1000] flex flex-col sm:flex-row gap-2">
                 <button
                     onClick={() => setServiceAreaVisible(!serviceAreaVisible)}
                     className={`flex flex-col items-center gap-1 px-4 py-3 rounded-xl shadow-2xl border transition-all backdrop-blur-xl ${
@@ -572,7 +572,7 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
             </div>
 
             {/* Collapsible Legend - Toggle Button */}
-            <div className="absolute bottom-6 left-6 z-[1000] pointer-events-none">
+            <div className="absolute bottom-6 left-6 lg:left-[calc(40%+1.5rem)] z-[1000] pointer-events-none">
                 <div className="pointer-events-auto">
                     {/* Toggle Button */}
                     {!legendOpen && (
