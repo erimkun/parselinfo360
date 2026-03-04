@@ -4,6 +4,7 @@ import { Deck, MapView } from '@deck.gl/core';
 import { TripsLayer } from '@deck.gl/geo-layers';
 import { ScatterplotLayer, PathLayer, TextLayer } from '@deck.gl/layers';
 import { X, Play, Pause, RotateCcw } from 'lucide-react';
+import { useTheme } from '../../../contexts/ThemeContext';
 
 interface Route {
     id: number;
@@ -27,6 +28,7 @@ const leafletToDeckZoom = (leafletZoom: number) => leafletZoom - 1;
 
 export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onClose }) => {
     const map = useMap();
+    const { theme } = useTheme();
     const deckRef = useRef<any>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const animationRef = useRef<number>(0);
@@ -401,11 +403,16 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
 
             {/* Control Panel */}
             <div className="absolute top-20 right-6 z-[1001] transition-all duration-300">
-                <div className="bg-slate-900/20 backdrop-blur-xl rounded-2xl border border-white/15 shadow-xl w-80 max-h-[calc(100vh-160px)] overflow-hidden">
+                <div className="bg-white/20 dark:bg-slate-900/25 backdrop-blur-2xl rounded-2xl border border-white/30 dark:border-white/15 shadow-xl w-80 max-h-[calc(100vh-160px)] overflow-hidden">
+
+                    {/* Ambient Glow - Sidebar ile aynı */}
+                    <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-blue-500/5 dark:from-white/5 to-transparent pointer-events-none rounded-t-2xl" />
+                    <div className="absolute -top-10 -left-10 w-40 h-40 bg-indigo-500/5 dark:bg-indigo-500/10 blur-[60px] pointer-events-none rounded-full" />
+
                     {/* Header */}
-                    <div className="flex items-center justify-between px-4 py-3 border-b border-white/15">
+                    <div className="flex items-center justify-between px-4 py-4 border-b border-gray-100 dark:border-white/10 relative z-10">
                         <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-md">
                                 <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                                     <path d="M9 3L5 7l4 4M15 3l4 4-4 4"/>
                                     <path d="M5 17c0-4 3-6 7-6s7 2 7 6"/>
@@ -413,21 +420,21 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
                                 </svg>
                             </div>
                             <div>
-                                <h3 className="text-white font-semibold text-sm">Nasıl Giderim?</h3>
-                                <p className="text-gray-400 text-xs">Rota seçin</p>
+                                <h3 className="text-gray-900 dark:text-white font-bold text-sm tracking-tight">Nasıl Giderim?</h3>
+                                <p className="text-gray-500 dark:text-blue-200/80 text-xs font-medium mt-0.5 uppercase tracking-wide">Rota seçin</p>
                             </div>
                         </div>
                         <button
                             onClick={onClose}
-                            className="p-2 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-all"
+                            className="p-2.5 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/15 text-gray-600 dark:text-white/80 hover:text-gray-900 dark:hover:text-white border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-white/20 transition-all shadow-sm"
                         >
-                            <X size={18} />
+                            <X size={16} />
                         </button>
                     </div>
 
                     {/* Routes List */}
-                    <div 
-                        className="p-3 overflow-y-auto max-h-[400px] space-y-2"
+                    <div
+                        className="p-3 overflow-y-auto max-h-[400px] space-y-2 relative z-10 custom-scrollbar"
                         onMouseEnter={() => map.scrollWheelZoom.disable()}
                         onMouseLeave={() => map.scrollWheelZoom.enable()}
                         onWheel={(e) => e.stopPropagation()}
@@ -436,27 +443,31 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
                             <button
                                 key={route.id}
                                 onClick={() => handleSelectRoute(i)}
-                                className={`w-full text-left p-3 rounded-xl border transition-all ${
+                                className={`w-full text-left p-3 rounded-xl border transition-all duration-200 ${
                                     selectedRoute === i
-                                        ? 'bg-indigo-500/25 border-indigo-400/40'
-                                        : 'bg-white/5 border-white/5 hover:bg-white/15 hover:border-white/15'
+                                        ? 'bg-indigo-500/15 dark:bg-indigo-500/20 border-indigo-400/50 dark:border-indigo-400/40 shadow-sm'
+                                        : 'bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/5 hover:bg-gray-100 dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-white/15'
                                 }`}
                             >
                                 <div className="flex items-center gap-3">
-                                    <div 
-                                        className="w-1.5 h-10 rounded-full"
+                                    <div
+                                        className="w-1.5 h-10 rounded-full flex-shrink-0"
                                         style={{ backgroundColor: `rgb(${route.color.join(',')})` }}
                                     />
-                                    <div className="flex-1">
-                                        <div className="text-white font-medium text-sm">{route.name}</div>
-                                        <div className="flex gap-4 text-gray-400 text-xs mt-1">
-                                            <span>{route.distance_km} km</span>
-                                            <span>{route.duration_min} dk</span>
+                                    <div className="flex-1 min-w-0">
+                                        <div className={`font-semibold text-sm truncate ${
+                                            selectedRoute === i
+                                                ? 'text-indigo-700 dark:text-indigo-300'
+                                                : 'text-gray-800 dark:text-white'
+                                        }`}>{route.name}</div>
+                                        <div className="flex gap-3 text-xs mt-1">
+                                            <span className="text-gray-500 dark:text-gray-400">{route.distance_km} km</span>
+                                            <span className="text-gray-500 dark:text-gray-400">{route.duration_min} dk</span>
                                         </div>
                                     </div>
                                     {selectedRoute === i && (
-                                        <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
-                                            <Play size={14} className="text-white ml-0.5" />
+                                        <div className="w-7 h-7 rounded-full bg-indigo-500 dark:bg-green-500 flex items-center justify-center flex-shrink-0 shadow-md">
+                                            <Play size={12} className="text-white ml-0.5" />
                                         </div>
                                     )}
                                 </div>
@@ -464,9 +475,9 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
                         ))}
                     </div>
 
-                    {/* Controls */}
-                    <div className="px-4 py-3 border-t border-white/15 flex items-center justify-between">
-                        <div className="text-xs text-gray-400">
+                    {/* Controls Footer */}
+                    <div className="px-4 py-3 border-t border-gray-100 dark:border-white/10 bg-gray-50/50 dark:bg-slate-900/40 flex items-center justify-between relative z-10 backdrop-blur-md rounded-b-2xl">
+                        <div className="text-xs font-medium text-gray-500 dark:text-gray-400 truncate max-w-[160px]">
                             {selectedRoute !== null ? routes[selectedRoute]?.name : 'Rota seçin'}
                         </div>
                         <div className="flex gap-2">
@@ -474,15 +485,15 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
                                 <>
                                     <button
                                         onClick={() => setIsPlaying(!isPlaying)}
-                                        className="p-2 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-white transition-all"
+                                        className="p-2 rounded-lg bg-indigo-600 dark:bg-indigo-500 hover:bg-indigo-700 dark:hover:bg-indigo-600 text-white transition-all shadow-sm"
                                     >
-                                        {isPlaying ? <Pause size={16} /> : <Play size={16} />}
+                                        {isPlaying ? <Pause size={15} /> : <Play size={15} />}
                                     </button>
                                     <button
                                         onClick={handleReset}
-                                        className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-all"
+                                        className="p-2 rounded-lg bg-gray-200 dark:bg-white/10 hover:bg-gray-300 dark:hover:bg-white/20 text-gray-700 dark:text-white transition-all shadow-sm"
                                     >
-                                        <RotateCcw size={16} />
+                                        <RotateCcw size={15} />
                                     </button>
                                 </>
                             )}
@@ -492,9 +503,9 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
             </div>
 
             {/* Start Point Info */}
-            <div className="absolute bottom-24 left-6 z-[1001] bg-slate-900/20 backdrop-blur-xl px-4 py-3 rounded-xl border border-white/15 shadow-lg">
-                <div className="text-[10px] uppercase tracking-wider text-white/70 font-bold">Başlangıç</div>
-                <div className="text-white font-semibold text-sm">Proje Konumu</div>
+            <div className="absolute bottom-24 left-6 lg:left-[calc(40%+1.5rem)] z-[1001] bg-white/20 dark:bg-slate-900/25 backdrop-blur-2xl px-4 py-3 rounded-xl border border-white/30 dark:border-white/15 shadow-lg">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 dark:text-white/70 font-bold">Başlangıç</div>
+                <div className="text-gray-900 dark:text-white font-semibold text-sm">Proje Konumu</div>
             </div>
         </>
     );
