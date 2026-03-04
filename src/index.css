@@ -119,6 +119,29 @@
   @apply bg-white/30 dark:bg-white/30 light:bg-gray-500;
 }
 
+/* TripLayer panel scrollbar - ince, koyu temaya uygun */
+.trip-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.4) transparent;
+}
+
+.trip-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.trip-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.trip-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.4);
+  border-radius: 99px;
+}
+
+.trip-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.7);
+}
+
 /* Login aurora/wave background */
 .login-aurora-root {
   background: #0a0a0f;

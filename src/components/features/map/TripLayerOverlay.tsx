@@ -428,7 +428,7 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
 
                     {/* Routes List */}
                     <div 
-                        className="p-2 lg:p-3 overflow-y-auto max-h-[300px] lg:max-h-[400px] space-y-2"
+                        className="p-2 lg:p-3 overflow-y-auto max-h-[300px] lg:max-h-[400px] space-y-2 trip-scrollbar"
                         onMouseEnter={() => map.scrollWheelZoom.disable()}
                         onMouseLeave={() => map.scrollWheelZoom.enable()}
                         onWheel={(e) => e.stopPropagation()}

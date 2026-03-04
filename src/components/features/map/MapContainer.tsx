@@ -12,7 +12,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import projectMarkerSvg from '../../../project-marker.svg?raw';
 import {
     Bus, Train, Ship, School, Hospital, Leaf, ShoppingBag,
-    Coffee, Music, Theater, Home, MapPin, Building2, Layers, Footprints
+    Coffee, Music, Theater, Home, MapPin, Building2, Layers, Footprints, Eye, EyeOff
 } from 'lucide-react';
 import { MapTools } from './MapTools';
 import { useMapEvents } from 'react-leaflet';
@@ -61,6 +61,11 @@ styleSheet.textContent = `
     
     .leaflet-container {
         background: transparent;
+    }
+    
+    /* Leaflet attribution gizle */
+    .leaflet-control-attribution {
+        display: none !important;
     }
 `;
 document.head.appendChild(styleSheet);
@@ -241,7 +246,17 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
     const [legendOpen, setLegendOpen] = React.useState(false);
     const [serviceAreaVisible, setServiceAreaVisible] = React.useState(true);
     const [tripLayerOpen, setTripLayerOpen] = React.useState(false);
+    const [hiddenCategories, setHiddenCategories] = React.useState<Set<string>>(new Set());
     const [activeTool, setActiveTool] = React.useState<string | null>(null);
+
+    const toggleCategory = (cat: string) => {
+        setHiddenCategories(prev => {
+            const next = new Set(prev);
+            if (next.has(cat)) next.delete(cat);
+            else next.add(cat);
+            return next;
+        });
+    };
     const [measurePoints, setMeasurePoints] = React.useState<[number, number][]>([]);
     const [focusTrigger, setFocusTrigger] = React.useState(0);
     const { theme } = useTheme();
@@ -476,8 +491,8 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
                     <Popup><span className="font-bold">Proje Alanı</span></Popup>
                 </Marker>
 
-                {/* Render Filtered POIs */}
-                {data.map((feature, idx) => {
+                {/* Render Filtered POIs (legend visibility filter) */}
+                {data.filter(f => !hiddenCategories.has(f.properties?._category)).map((feature, idx) => {
                     // Check for valid coordinates (Point type)
                     if (feature.geometry?.type !== 'Point' || !feature.geometry.coordinates) return null;
                     const [lng, lat] = feature.geometry.coordinates;
@@ -527,7 +542,7 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
                 </button>
 
                 <button
-                    onClick={() => setTripLayerOpen(true)}
+                    onClick={() => setTripLayerOpen(prev => !prev)}
                     className={`flex flex-col items-center gap-1 px-4 py-3 rounded-xl shadow-2xl border transition-all backdrop-blur-xl ${
                         tripLayerOpen
                             ? 'bg-gradient-to-br from-indigo-500/80 to-purple-600/80 text-white border-indigo-400/60'
@@ -571,55 +586,41 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
                                     </svg>
                                 </button>
                             </div>
-                            <div className="space-y-2 text-xs">
-                                <div className="flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-white/5 p-1.5 rounded-lg transition-colors">
+                            <div className="space-y-1 text-xs">
+                                {/* Proje Alanı - toggle yok */}
+                                <div className="flex items-center gap-2 p-1.5 rounded-lg">
                                     <div className="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center shadow-md border border-white/20">
                                         <Building2 size={12} />
                                     </div>
-                                    <span className="text-gray-700 dark:text-white font-medium">Proje Alanı</span>
+                                    <span className="flex-1 text-gray-700 dark:text-white font-medium">Proje Alanı</span>
                                 </div>
-                                <div className="flex items-center gap-2 hover:bg-orange-500/10 p-1.5 rounded-lg transition-colors">
-                                    <div className="w-6 h-6 rounded-full bg-orange-500 text-white flex items-center justify-center shadow-md border border-orange-400/30">
-                                        <Bus size={12} />
-                                    </div>
-                                    <span className="text-white">Toplu Taşıma</span>
-                                </div>
-                                <div className="flex items-center gap-2 hover:bg-blue-500/10 p-1.5 rounded-lg transition-colors">
-                                    <div className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center shadow-md border border-blue-400/30">
-                                        <Ship size={12} />
-                                    </div>
-                                    <span className="text-white">Deniz Ulaşımı</span>
-                                </div>
-                                <div className="flex items-center gap-2 hover:bg-yellow-500/10 p-1.5 rounded-lg transition-colors">
-                                    <div className="w-6 h-6 rounded-full bg-yellow-500 text-white flex items-center justify-center shadow-md border border-yellow-400/30">
-                                        <School size={12} />
-                                    </div>
-                                    <span className="text-white">Eğitim</span>
-                                </div>
-                                <div className="flex items-center gap-2 hover:bg-red-500/10 p-1.5 rounded-lg transition-colors">
-                                    <div className="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center shadow-md border border-red-400/30">
-                                        <Hospital size={12} />
-                                    </div>
-                                    <span className="text-white">Sağlık</span>
-                                </div>
-                                <div className="flex items-center gap-2 hover:bg-indigo-500/10 p-1.5 rounded-lg transition-colors">
-                                    <div className="w-6 h-6 rounded-full bg-indigo-500 text-white flex items-center justify-center shadow-md border border-indigo-400/30">
-                                        <Theater size={12} />
-                                    </div>
-                                    <span className="text-white">Sosyal</span>
-                                </div>
-                                <div className="flex items-center gap-2 hover:bg-teal-500/10 p-1.5 rounded-lg transition-colors">
-                                    <div className="w-6 h-6 rounded-full bg-teal-500 text-white flex items-center justify-center shadow-md border border-teal-400/30">
-                                        <Home size={12} />
-                                    </div>
-                                    <span className="text-gray-600 dark:text-white">Yaşam/Konut</span>
-                                </div>
-                                <div className="flex items-center gap-2 hover:bg-green-500/10 p-1.5 rounded-lg transition-colors">
-                                    <div className="w-6 h-6 rounded-full bg-green-500 text-white flex items-center justify-center shadow-md border border-green-400/30">
-                                        <Leaf size={12} />
-                                    </div>
-                                    <span className="text-gray-600 dark:text-white">Yeşil Alan</span>
-                                </div>
+
+                                {([
+                                    { icon: Bus, color: 'bg-orange-500', hover: 'hover:bg-orange-500/10', label: 'Toplu Taşıma', cat: 'ulasim' },
+                                    { icon: Ship, color: 'bg-blue-500', hover: 'hover:bg-blue-500/10', label: 'Deniz Ulaşımı', cat: 'ulasim' },
+                                    { icon: School, color: 'bg-yellow-500', hover: 'hover:bg-yellow-500/10', label: 'Eğitim', cat: 'egitim' },
+                                    { icon: Hospital, color: 'bg-red-500', hover: 'hover:bg-red-500/10', label: 'Sağlık', cat: 'saglik' },
+                                    { icon: Theater, color: 'bg-indigo-500', hover: 'hover:bg-indigo-500/10', label: 'Sosyal/Kültür', cat: 'sosyal_kulturel' },
+                                    { icon: Home, color: 'bg-teal-500', hover: 'hover:bg-teal-500/10', label: 'Yaşam/Konut', cat: 'yasam' },
+                                    { icon: Leaf, color: 'bg-green-500', hover: 'hover:bg-green-500/10', label: 'Yeşil Alan', cat: 'yasam' },
+                                ] as { icon: any; color: string; hover: string; label: string; cat: string }[]).map(({ icon: IconComp, color, hover, label, cat }) => {
+                                    const hidden = hiddenCategories.has(cat);
+                                    return (
+                                        <div
+                                            key={label}
+                                            className={`flex items-center gap-2 ${hover} p-1.5 rounded-lg transition-colors cursor-pointer group`}
+                                            onClick={() => toggleCategory(cat)}
+                                        >
+                                            <div className={`w-6 h-6 rounded-full ${hidden ? 'bg-gray-400' : color} text-white flex items-center justify-center shadow-md border border-white/20 transition-colors`}>
+                                                <IconComp size={12} />
+                                            </div>
+                                            <span className={`flex-1 transition-colors ${hidden ? 'text-gray-400 line-through' : 'text-gray-700 dark:text-white'}`}>{label}</span>
+                                            <span className={`transition-colors ${hidden ? 'text-gray-400' : 'text-gray-400 dark:text-white/40 group-hover:text-gray-600 dark:group-hover:text-white/70'}`}>
+                                                {hidden ? <EyeOff size={13} /> : <Eye size={13} />}
+                                            </span>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </div>
                     )}
