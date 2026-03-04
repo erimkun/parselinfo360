@@ -10,23 +10,19 @@ export const MainLayout: FC<MainLayoutProps> = ({ sidebar, map }) => {
     const [mobileView, setMobileView] = useState<'sidebar' | 'map'>('sidebar');
 
     return (
-        <div className="flex h-screen overflow-hidden bg-background-light dark:bg-background-dark font-display text-text-primary-light dark:text-text-primary-dark transition-colors duration-300">
-            {/* Sidebar - Mobilde toggle ile göster/gizle, Desktop'ta her zaman göster */}
+        <div className="relative h-screen overflow-hidden bg-background-light dark:bg-background-dark font-display text-text-primary-light dark:text-text-primary-dark transition-colors duration-300">
+            {/* Map - Full screen background */}
+            <main className="absolute inset-0 bg-gray-100 dark:bg-gray-900 overflow-hidden">
+                {map}
+            </main>
+
+            {/* Sidebar - Overlay on top of map with glassmorphism */}
             <aside className={`
-                w-full lg:w-[40%] h-full z-10 shadow-xl relative flex flex-col 
-                bg-panel-light dark:bg-panel-dark border-r border-gray-200 dark:border-gray-800
+                absolute top-0 left-0 w-full lg:w-[40%] h-full z-10 flex flex-col 
                 ${mobileView === 'sidebar' ? 'flex' : 'hidden'} lg:flex
             `}>
                 {sidebar}
             </aside>
-
-            {/* Map - Mobilde toggle ile göster/gizle, Desktop'ta her zaman göster */}
-            <main className={`
-                flex-1 relative bg-gray-100 dark:bg-gray-900 overflow-hidden
-                ${mobileView === 'map' ? 'flex' : 'hidden'} lg:flex
-            `}>
-                {map}
-            </main>
 
             {/* Mobile Toggle Button - Sadece mobilde görünür */}
             <button

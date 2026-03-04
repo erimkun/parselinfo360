@@ -34,11 +34,11 @@ export const Sidebar: FC<SidebarProps> = ({ activeTab, onTabChange, children, pa
     ];
 
     return (
-        <div className="flex flex-col h-full bg-white/80 dark:bg-slate-900/75 backdrop-blur-xl border-r border-gray-200 dark:border-white/10 shadow-2xl relative transition-all duration-500">
+        <div className="flex flex-col h-full bg-white/20 dark:bg-slate-900/25 backdrop-blur-2xl border-r border-white/30 dark:border-white/15 shadow-xl relative transition-all duration-500">
 
             {/* Ambient Glows */}
             <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-blue-500/5 dark:from-white/5 to-transparent pointer-events-none"></div>
-            <div className="absolute -top-20 -left-20 w-64 h-64 bg-blue-500/10 dark:bg-blue-500/20 blur-[80px] pointer-events-none mix-blend-normal dark:mix-blend-screen"></div>
+            <div className="absolute -top-20 -left-20 w-64 h-64 bg-blue-500/5 dark:bg-blue-500/10 blur-[80px] pointer-events-none mix-blend-normal dark:mix-blend-screen"></div>
 
             <header className="px-6 py-6 border-b border-gray-100 dark:border-white/10 flex justify-between items-center shrink-0 relative z-10">
                 <div>

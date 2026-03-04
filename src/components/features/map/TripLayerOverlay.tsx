@@ -368,8 +368,7 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
             
             // Smooth fly to bounds showing entire route
             map.flyToBounds(bounds, {
-                padding: [100, 100],
-                maxZoom: 14,
+                padding: [50, 50],
                 duration: 0.9,
                 easeLinearity: 0.3
             });
@@ -401,34 +400,34 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
             />
 
             {/* Control Panel */}
-            <div className="absolute top-16 right-4 lg:top-20 lg:right-6 z-[1001] transition-all duration-300">
-                <div className="bg-slate-900/20 backdrop-blur-xl rounded-xl lg:rounded-2xl border border-white/15 shadow-xl w-64 sm:w-72 lg:w-80 max-h-[calc(100vh-180px)] lg:max-h-[calc(100vh-160px)] overflow-hidden">
+            <div className="absolute top-20 right-6 z-[1001] transition-all duration-300">
+                <div className="bg-slate-900/20 backdrop-blur-xl rounded-2xl border border-white/15 shadow-xl w-80 max-h-[calc(100vh-160px)] overflow-hidden">
                     {/* Header */}
-                    <div className="flex items-center justify-between px-3 py-2 lg:px-4 lg:py-3 border-b border-white/15">
-                        <div className="flex items-center gap-2 lg:gap-3">
-                            <div className="w-7 h-7 lg:w-8 lg:h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-                                <svg className="w-4 h-4 lg:w-5 lg:h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <div className="flex items-center justify-between px-4 py-3 border-b border-white/15">
+                        <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                                <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                                     <path d="M9 3L5 7l4 4M15 3l4 4-4 4"/>
                                     <path d="M5 17c0-4 3-6 7-6s7 2 7 6"/>
                                     <circle cx="12" cy="19" r="2"/>
                                 </svg>
                             </div>
                             <div>
-                                <h3 className="text-white font-semibold text-xs lg:text-sm">Nasıl Giderim?</h3>
-                                <p className="text-gray-400 text-[10px] lg:text-xs">Rota seçin</p>
+                                <h3 className="text-white font-semibold text-sm">Nasıl Giderim?</h3>
+                                <p className="text-gray-400 text-xs">Rota seçin</p>
                             </div>
                         </div>
                         <button
                             onClick={onClose}
-                            className="p-1.5 lg:p-2 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-all"
+                            className="p-2 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-all"
                         >
-                            <X size={16} className="lg:w-[18px] lg:h-[18px]" />
+                            <X size={18} />
                         </button>
                     </div>
 
                     {/* Routes List */}
                     <div 
-                        className="p-2 lg:p-3 overflow-y-auto max-h-[300px] lg:max-h-[400px] space-y-2 trip-scrollbar"
+                        className="p-3 overflow-y-auto max-h-[400px] space-y-2"
                         onMouseEnter={() => map.scrollWheelZoom.disable()}
                         onMouseLeave={() => map.scrollWheelZoom.enable()}
                         onWheel={(e) => e.stopPropagation()}

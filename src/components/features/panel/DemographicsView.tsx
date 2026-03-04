@@ -162,10 +162,10 @@ export const DemographicsView: React.FC = () => {
         ];
 
         const investFeature = investmentFeatures.find(f => f.properties.MAHALLEADI === selectedNeighborhood);
-        // Ensure robust parsing
+        // Ensure robust parsing - use ses_2023_skor (numeric value, not ses_2023 which is letter grade like "A+")
         let sesScore = 0;
-        if (investFeature && investFeature.properties.ses_2023 !== undefined) {
-            const raw = investFeature.properties.ses_2023;
+        if (investFeature && investFeature.properties.ses_2023_skor !== undefined) {
+            const raw = investFeature.properties.ses_2023_skor;
             sesScore = typeof raw === 'number' ? raw : parseFloat(String(raw).replace(',', '.')) || 0;
         }
 

@@ -245,6 +245,7 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
     }, [projectParcel]);
     const [legendOpen, setLegendOpen] = React.useState(false);
     const [serviceAreaVisible, setServiceAreaVisible] = React.useState(true);
+    const [poiVisible, setPoiVisible] = React.useState(true);
     const [tripLayerOpen, setTripLayerOpen] = React.useState(false);
     const [hiddenCategories, setHiddenCategories] = React.useState<Set<string>>(new Set());
     const [activeTool, setActiveTool] = React.useState<string | null>(null);
@@ -492,7 +493,7 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
                 </Marker>
 
                 {/* Render Filtered POIs (legend visibility filter) */}
-                {data.filter(f => !hiddenCategories.has(f.properties?._category)).map((feature, idx) => {
+                {poiVisible && data.filter(f => !hiddenCategories.has(f.properties?._category)).map((feature, idx) => {
                     // Check for valid coordinates (Point type)
                     if (feature.geometry?.type !== 'Point' || !feature.geometry.coordinates) return null;
                     const [lng, lat] = feature.geometry.coordinates;
@@ -542,6 +543,18 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
                 </button>
 
                 <button
+                    onClick={() => setPoiVisible(!poiVisible)}
+                    className={`flex flex-col items-center gap-1 px-4 py-3 rounded-xl shadow-2xl border transition-all backdrop-blur-xl ${
+                        poiVisible
+                            ? 'bg-orange-400/90 text-white border-orange-400'
+                            : 'bg-white/80 dark:bg-slate-900/70 text-gray-700 dark:text-white border-gray-200 dark:border-white/10 hover:bg-orange-400/10 hover:border-orange-400/40'
+                    }`}
+                >
+                    <MapPin size={28} />
+                    <span className="text-[10px] font-bold">Olanaklar</span>
+                </button>
+
+                <button
                     onClick={() => setTripLayerOpen(prev => !prev)}
                     className={`flex flex-col items-center gap-1 px-4 py-3 rounded-xl shadow-2xl border transition-all backdrop-blur-xl ${
                         tripLayerOpen
@@ -554,7 +567,7 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
                         <path d="M5 17c0-4 3-6 7-6s7 2 7 6"/>
                         <circle cx="12" cy="19" r="2"/>
                     </svg>
-                    <span className="text-[10px] font-bold">Güzergah</span>
+                    <span className="text-[10px] font-bold">Nasıl Giderim?</span>
                 </button>
             </div>
 

@@ -146,7 +146,7 @@ export const FloatingStrategyPanel: React.FC = () => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => setIsOpen(true)}
-                        className="pointer-events-auto flex items-center gap-3 px-6 py-4 rounded-full bg-white/80 dark:bg-slate-900/60 text-gray-900 dark:text-white shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] border border-gray-200 dark:border-white/20 backdrop-blur-xl hover:bg-gray-100 dark:hover:bg-slate-800/80 transition-all group"
+                        className="pointer-events-auto flex items-center gap-3 px-6 py-4 rounded-full bg-white/10 dark:bg-slate-900/15 text-gray-900 dark:text-white shadow-lg border border-white/20 dark:border-white/10 backdrop-blur-xl hover:bg-white/20 dark:hover:bg-slate-800/25 transition-all group"
                     >
                         <div className="relative">
                             <BrainCircuit size={22} className="text-blue-300 group-hover:text-white transition-colors" />
@@ -164,15 +164,15 @@ export const FloatingStrategyPanel: React.FC = () => {
                         initial={{ y: 20, opacity: 0, scale: 0.95 }}
                         animate={{ y: 0, opacity: 1, scale: 1 }}
                         exit={{ y: 20, opacity: 0, scale: 0.95 }}
-                        className="pointer-events-auto w-[420px] bg-white/90 dark:bg-slate-900/60 backdrop-blur-2xl border border-gray-200 dark:border-white/20 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col relative"
+                        className="pointer-events-auto w-[420px] bg-white/10 dark:bg-slate-900/15 backdrop-blur-xl border border-white/15 dark:border-white/10 rounded-3xl shadow-xl overflow-hidden flex flex-col relative"
                     >
                         {/* Gradient Glow - Stronger */}
                         <div className="absolute -top-20 -right-20 w-80 h-80 bg-blue-600/30 rounded-full blur-[90px] pointer-events-none mix-blend-screen"></div>
                         <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-purple-600/30 rounded-full blur-[80px] pointer-events-none mix-blend-screen"></div>
 
                         {/* --- HEADER TABS --- */}
-                        <div className="flex items-center justify-between p-3 border-b border-gray-100 dark:border-white/10 bg-gray-50/50 dark:bg-black/30 relative z-10">
-                            <div className="flex bg-gray-200/50 dark:bg-black/30 rounded-full p-1.5 border border-gray-200 dark:border-white/10 shadow-inner">
+                        <div className="flex items-center justify-between p-3 border-b border-white/10 bg-white/5 dark:bg-black/10 relative z-10">
+                            <div className="flex bg-white/10 dark:bg-black/20 rounded-full p-1.5 border border-white/15 dark:border-white/10 shadow-inner">
                                 <button
                                     onClick={() => { setActiveTab('scenarios'); setIsPlaying(true); }}
                                     className={cn(
