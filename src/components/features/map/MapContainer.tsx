@@ -1,5 +1,10 @@
 import React from 'react';
 import { useTheme } from '../../../contexts/ThemeContext';
+
+// Lazy load TripLayerOverlay - deck.gl paketleri büyük olduğu için
+const TripLayerOverlay = React.lazy(() =>
+    import('./TripLayerOverlay').then(module => ({ default: module.TripLayerOverlay }))
+);
 import { MapContainer as PacketMapContainer, TileLayer, Marker, Popup, GeoJSON, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Icon, DivIcon } from 'leaflet';
@@ -235,6 +240,7 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
     }, [projectParcel]);
     const [legendOpen, setLegendOpen] = React.useState(false);
     const [serviceAreaVisible, setServiceAreaVisible] = React.useState(true);
+    const [tripLayerOpen, setTripLayerOpen] = React.useState(false);
     const [activeTool, setActiveTool] = React.useState<string | null>(null);
     const [measurePoints, setMeasurePoints] = React.useState<[number, number][]>([]);
     const [focusTrigger, setFocusTrigger] = React.useState(0);
@@ -343,6 +349,13 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
 
                 <MapFocusController center={center} trigger={focusTrigger} />
                 <MapInitialFit projectParcel={projectParcel} />
+
+                {/* Trip Layer Overlay - Lazy loaded */}
+                {tripLayerOpen && (
+                    <React.Suspense fallback={null}>
+                        <TripLayerOverlay isOpen={tripLayerOpen} onClose={() => setTripLayerOpen(false)} />
+                    </React.Suspense>
+                )}
 
                 {/* Boundary Layer */}
                 {boundary && (
@@ -499,8 +512,8 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
                 onFocus={() => setFocusTrigger(prev => prev + 1)}
             />
 
-            {/* Service Area Toggle Button - Top Left */}
-            <div className="absolute top-6 left-6 z-[1000]">
+            {/* Service Area & Trip Layer Buttons - Top Left */}
+            <div className="absolute top-6 left-6 z-[1000] flex flex-col sm:flex-row gap-2">
                 <button
                     onClick={() => setServiceAreaVisible(!serviceAreaVisible)}
                     className={`flex flex-col items-center gap-1 px-4 py-3 rounded-xl shadow-2xl border transition-all backdrop-blur-xl ${
@@ -511,6 +524,22 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
                 >
                     <Footprints size={28} />
                     <span className="text-[10px] font-bold">Yürüme Mesafesi</span>
+                </button>
+
+                <button
+                    onClick={() => setTripLayerOpen(true)}
+                    className={`flex flex-col items-center gap-1 px-4 py-3 rounded-xl shadow-2xl border transition-all backdrop-blur-xl ${
+                        tripLayerOpen
+                            ? 'bg-gradient-to-br from-indigo-500/80 to-purple-600/80 text-white border-indigo-400/60'
+                            : 'bg-white/80 dark:bg-slate-900/70 text-gray-700 dark:text-white border-gray-200 dark:border-white/10 hover:bg-gradient-to-br hover:from-indigo-500/20 hover:to-purple-500/20 hover:border-indigo-400/40'
+                    }`}
+                >
+                    <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                        <path d="M9 3L5 7l4 4M15 3l4 4-4 4"/>
+                        <path d="M5 17c0-4 3-6 7-6s7 2 7 6"/>
+                        <circle cx="12" cy="19" r="2"/>
+                    </svg>
+                    <span className="text-[10px] font-bold">Güzergah</span>
                 </button>
             </div>
 
