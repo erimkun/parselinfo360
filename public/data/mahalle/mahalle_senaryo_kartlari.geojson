@@ -1,0 +1,50 @@
+{
+  "type": "FeatureCollection",
+  "name": "mahalle_senaryo_kartlari",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "OBJECTID": 20,
+        "ILCE_ADI": "ÜSKÜDAR",
+        "MAHALLEADI": "ACIBADEM",
+        "MAHALLE_UAVT": 40778,
+        "ses_2023": "A+",
+        "piyasa_canlilik": 4.8633093525179856,
+        "fiyat_momentum": 24.684312962242117,
+        "ort_kira_2025": 551.0,
+        "trend_2025": 34.5,
+        "daglanma_skor": 80.06749240217486,
+        "std_aylik_degisim": 0.19932507597825133,
+        "satilikm2_ort": 98609.16666666667,
+        "satilikm2_ort_son12ay": 126499.75,
+        "uzun_vade_sapma": 70.0,
+        "alim_satim_ort": 434.0,
+        "alim_satim_std": 76.44867559349868,
+        "islem_sureklilligi": 82.38509778951644,
+        "piyasa_istikrar": 77.97428683645903,
+        "s3_stabilite_oran": 65.65679323228241,
+        "s3_uzunvade_artis_skor": 81.55620017475178,
+        "ilan_baski": null,
+        "ulasim_skor": 61.81818181818182,
+        "yasam_skor": 63.11584553928096,
+        "genc_ogr_te": 19.401325636091492,
+        "piyasa_canlilik_1": 4.8633093525179856,
+        "fiyat_momentum_1": 24.684312962242117,
+        "senaryo1_skor": 36.633288504459856,
+        "saglik_skor": 50.75493612078978,
+        "egitim_skor": 24.897119341563787,
+        "aile_demografi": 42.30252129703051,
+        "yesil_alan_skor": 12.52726111493466,
+        "senaryo2_skor": 41.887097112299045,
+        "talep_des_erisim": 25.168227211276225,
+        "ses_2023_skor": 100.0,
+        "senaryo3_skor": 64.65629244218758,
+        "fiyat_voltalite": 83.38023471536073,
+        "senaryo4_skor": 69.04530866813343,
+        "yas50_yogunlugu": 77.62344575840268
+      },
+      "geometry": null
+    }
+  ]
+}
