@@ -596,13 +596,13 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
                                 </div>
 
                                 {([
-                                    { icon: Bus, color: 'bg-orange-500', hover: 'hover:bg-orange-500/10', label: 'Toplu Taşıma', cat: 'ulasim' },
-                                    { icon: Ship, color: 'bg-blue-500', hover: 'hover:bg-blue-500/10', label: 'Deniz Ulaşımı', cat: 'ulasim' },
-                                    { icon: School, color: 'bg-yellow-500', hover: 'hover:bg-yellow-500/10', label: 'Eğitim', cat: 'egitim' },
-                                    { icon: Hospital, color: 'bg-red-500', hover: 'hover:bg-red-500/10', label: 'Sağlık', cat: 'saglik' },
-                                    { icon: Theater, color: 'bg-indigo-500', hover: 'hover:bg-indigo-500/10', label: 'Sosyal/Kültür', cat: 'sosyal_kulturel' },
-                                    { icon: Home, color: 'bg-teal-500', hover: 'hover:bg-teal-500/10', label: 'Yaşam/Konut', cat: 'yasam' },
-                                    { icon: Leaf, color: 'bg-green-500', hover: 'hover:bg-green-500/10', label: 'Yeşil Alan', cat: 'yasam' },
+                                    { icon: Bus, color: 'bg-orange-500', hover: 'hover:bg-orange-500/10', label: 'Toplu Taşıma', cat: 'transport' },
+                                    { icon: Ship, color: 'bg-blue-500', hover: 'hover:bg-blue-500/10', label: 'Deniz Ulaşımı', cat: 'transport' },
+                                    { icon: School, color: 'bg-yellow-500', hover: 'hover:bg-yellow-500/10', label: 'Eğitim', cat: 'education' },
+                                    { icon: Hospital, color: 'bg-red-500', hover: 'hover:bg-red-500/10', label: 'Sağlık', cat: 'health' },
+                                    { icon: Theater, color: 'bg-indigo-500', hover: 'hover:bg-indigo-500/10', label: 'Sosyal/Kültür', cat: 'social' },
+                                    { icon: Home, color: 'bg-teal-500', hover: 'hover:bg-teal-500/10', label: 'Yaşam/Konut', cat: 'life' },
+                                    { icon: Leaf, color: 'bg-green-500', hover: 'hover:bg-green-500/10', label: 'Yeşil Alan', cat: 'life' },
                                 ] as { icon: any; color: string; hover: string; label: string; cat: string }[]).map(({ icon: IconComp, color, hover, label, cat }) => {
                                     const hidden = hiddenCategories.has(cat);
                                     return (
