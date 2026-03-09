@@ -5,6 +5,7 @@ import { TripsLayer } from '@deck.gl/geo-layers';
 import { ScatterplotLayer, PathLayer, TextLayer } from '@deck.gl/layers';
 import { X, Play, Pause, RotateCcw } from 'lucide-react';
 import { useTheme } from '../../../contexts/ThemeContext';
+import { useCompany } from '../../../contexts/CompanyContext';
 
 interface Route {
     id: number;
@@ -29,29 +30,40 @@ const leafletToDeckZoom = (leafletZoom: number) => leafletZoom - 1;
 export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onClose }) => {
     const map = useMap();
     const { theme } = useTheme();
+    const { adaParsel } = useCompany();
     const deckRef = useRef<any>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const animationRef = useRef<number>(0);
-    
+
     const [routes, setRoutes] = useState<Route[]>([]);
     const [selectedRoute, setSelectedRoute] = useState<number | null>(null);
     const [time, setTime] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isZooming, setIsZooming] = useState(false);
 
-    // Load routes data
+    // Load routes data based on active ada_parsel
     useEffect(() => {
-        if (isOpen) {
-            fetch('/data/proje/trip_routes.json')
+        if (isOpen && adaParsel) {
+            const formattedAdaParsel = adaParsel.replace('_', '-');
+
+            fetch('/data/proje/trip_layers.json')
                 .then(res => res.json())
-                .then(data => setRoutes(data))
+                .then(data => {
+                    const parcelData = data?.parsels?.[formattedAdaParsel];
+                    if (parcelData && parcelData.trips) {
+                        setRoutes(parcelData.trips);
+                    } else {
+                        console.warn(`No trip routes found for ada_parsel: ${formattedAdaParsel}`);
+                        setRoutes([]);
+                    }
+                })
                 .catch(console.error);
         }
         // Re-enable scroll wheel zoom when panel closes
         return () => {
             map.scrollWheelZoom.enable();
         };
-    }, [isOpen, map]);
+    }, [isOpen, map, adaParsel]);
 
     // Get current view state from Leaflet
     const getViewState = useCallback(() => {
@@ -77,7 +89,7 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
         if (!isOpen || !containerRef.current) return;
 
         const container = containerRef.current;
-        
+
         deckRef.current = new Deck({
             parent: container,
             views: new MapView({ repeat: true }),
@@ -93,7 +105,7 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
         const onZoomStart = () => {
             setIsZooming(true);
         };
-        
+
         // Zoom end - show deck.gl and sync
         const onZoomEnd = () => {
             setIsZooming(false);
@@ -131,9 +143,9 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
             setTime(t => t + 16); // ~60fps (16ms per frame)
             animationRef.current = requestAnimationFrame(animate);
         };
-        
+
         animationRef.current = requestAnimationFrame(animate);
-        
+
         return () => {
             if (animationRef.current) {
                 cancelAnimationFrame(animationRef.current);
@@ -158,7 +170,7 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
             radiusMinPixels: 10,
             radiusMaxPixels: 20
         }));
-        
+
         // Start point label - "Proje Alanı"
         layers.push(new TextLayer({
             id: 'start-point-label',
@@ -199,9 +211,9 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
             const route = routes[selectedRoute];
             const duration = route.is_far ? 6000 : 4500; // Milliseconds per loop (faster)
             const loopTime = time % duration;
-            
+
             // Calculate timestamps - evenly distributed along the route
-            const timestamps = route.path.map((_: any, i: number) => 
+            const timestamps = route.path.map((_: any, i: number) =>
                 (i / (route.path.length - 1)) * duration
             );
 
@@ -224,7 +236,7 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
 
             // End point marker for selected route - Modern pin marker
             const endPoint = route.path[route.path.length - 1];
-            
+
             // Pin marker icon using emoji
             layers.push(new TextLayer({
                 id: 'end-point-marker',
@@ -240,7 +252,7 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
                 characterSet: 'auto',
                 billboard: true
             }));
-            
+
             // Destination label with Turkish font support
             layers.push(new TextLayer({
                 id: 'end-point-label',
@@ -260,7 +272,7 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
                 outlineWidth: 3,
                 billboard: true
             }));
-            
+
             // Distance and duration label for selected route - ABOVE the marker
             layers.push(new TextLayer({
                 id: 'end-point-info',
@@ -286,7 +298,7 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
         routes.forEach((route, i) => {
             if (selectedRoute !== i) {
                 const endPoint = route.path[route.path.length - 1];
-                
+
                 // Small pin marker
                 layers.push(new TextLayer({
                     id: `end-marker-${i}`,
@@ -302,7 +314,7 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
                     characterSet: 'auto',
                     billboard: true
                 }));
-                
+
                 // Small label with Turkish font support
                 layers.push(new TextLayer({
                     id: `end-label-${i}`,
@@ -322,7 +334,7 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
                     outlineWidth: 2,
                     billboard: true
                 }));
-                
+
                 // Distance and duration info for non-selected routes - ABOVE the marker
                 layers.push(new TextLayer({
                     id: `end-info-${i}`,
@@ -353,13 +365,13 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
         setSelectedRoute(id);
         setTime(0);
         setIsPlaying(true);
-        
+
         // Smooth zoom out to show entire route from start to end
         const route = routes[id];
         if (route && map) {
             // Get all points including start point
             const allPoints: [number, number][] = [START_POINT, ...route.path];
-            
+
             // Calculate bounds to fit entire route
             const lats = allPoints.map(p => p[1]);
             const lngs = allPoints.map(p => p[0]);
@@ -367,7 +379,7 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
                 [Math.min(...lats), Math.min(...lngs)],
                 [Math.max(...lats), Math.max(...lngs)]
             ];
-            
+
             // Smooth fly to bounds showing entire route
             map.flyToBounds(bounds, {
                 padding: [50, 50],
@@ -393,8 +405,8 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
             <div
                 ref={containerRef}
                 className="absolute inset-0 z-[500] pointer-events-none"
-                style={{ 
-                    width: '100%', 
+                style={{
+                    width: '100%',
                     height: '100%',
                     opacity: isZooming ? 0 : 1,
                     transition: 'opacity 0.15s ease-out'
@@ -414,9 +426,9 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
                         <div className="flex items-center gap-3">
                             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-md">
                                 <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                                    <path d="M9 3L5 7l4 4M15 3l4 4-4 4"/>
-                                    <path d="M5 17c0-4 3-6 7-6s7 2 7 6"/>
-                                    <circle cx="12" cy="19" r="2"/>
+                                    <path d="M9 3L5 7l4 4M15 3l4 4-4 4" />
+                                    <path d="M5 17c0-4 3-6 7-6s7 2 7 6" />
+                                    <circle cx="12" cy="19" r="2" />
                                 </svg>
                             </div>
                             <div>
@@ -443,11 +455,10 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
                             <button
                                 key={route.id}
                                 onClick={() => handleSelectRoute(i)}
-                                className={`w-full text-left p-3 rounded-xl border transition-all duration-200 ${
-                                    selectedRoute === i
-                                        ? 'bg-indigo-500/15 dark:bg-indigo-500/20 border-indigo-400/50 dark:border-indigo-400/40 shadow-sm'
-                                        : 'bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/5 hover:bg-gray-100 dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-white/15'
-                                }`}
+                                className={`w-full text-left p-3 rounded-xl border transition-all duration-200 ${selectedRoute === i
+                                    ? 'bg-indigo-500/15 dark:bg-indigo-500/20 border-indigo-400/50 dark:border-indigo-400/40 shadow-sm'
+                                    : 'bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/5 hover:bg-gray-100 dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-white/15'
+                                    }`}
                             >
                                 <div className="flex items-center gap-3">
                                     <div
@@ -455,11 +466,10 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
                                         style={{ backgroundColor: `rgb(${route.color.join(',')})` }}
                                     />
                                     <div className="flex-1 min-w-0">
-                                        <div className={`font-semibold text-sm truncate ${
-                                            selectedRoute === i
-                                                ? 'text-indigo-700 dark:text-indigo-300'
-                                                : 'text-gray-800 dark:text-white'
-                                        }`}>{route.name}</div>
+                                        <div className={`font-semibold text-sm truncate ${selectedRoute === i
+                                            ? 'text-indigo-700 dark:text-indigo-300'
+                                            : 'text-gray-800 dark:text-white'
+                                            }`}>{route.name}</div>
                                         <div className="flex gap-3 text-xs mt-1">
                                             <span className="text-gray-500 dark:text-gray-400">{route.distance_km} km</span>
                                             <span className="text-gray-500 dark:text-gray-400">{route.duration_min} dk</span>

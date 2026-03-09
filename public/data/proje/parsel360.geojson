@@ -1,8 +1,123 @@
 {
-"type": "FeatureCollection",
-"name": "parsel_1101_8",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-{ "type": "Feature", "properties": { "OBJECTID": 1, "Name": "Bulgurlu Mahallesi 1101-ada-8-parsel", "ilce": "Üsküdar", "parsel": "8", "Pafta": "76", "Nitelik": "Bahçeli Kargir Ev", "Mahalle": "Acıbadem", "Ada": "1101", "Alan": "605,59", "Shape_Length": 0.0010873109097635145, "Shape_Area": 6.4149976564950072e-08, "firma_adi": "\nHS MMÜTEAHHİTLİK - VOLKAN MARANGOZ İŞ ORTAKLIĞI\n", "teslim_tarihi": null, "toplam_konut": null, "proje_tipi": null, "ada_parsel": "1101_8", "proje_nitelik": null }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 29.049940000430752, 41.004049999707775 ], [ 29.05017000024537, 41.004319999568395 ], [ 29.050330000429256, 41.004240000375773 ], [ 29.050210000291315, 41.004089999753717 ], [ 29.050039999646348, 41.003949999592869 ], [ 29.049940000430752, 41.004049999707775 ] ] ] ] } }
-]
+  "type": "FeatureCollection",
+  "name": "parsel_1101_8",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "OBJECTID": 1,
+        "Name": "Bulgurlu Mahallesi 1101-ada-8-parsel",
+        "ilce": "Üsküdar",
+        "parsel": "8",
+        "Pafta": "76",
+        "Nitelik": "Bahçeli Kargir Ev",
+        "Mahalle": "Acıbadem",
+        "Ada": "1101",
+        "Alan": "605,59",
+        "Shape_Length": 0.0010873109097635145,
+        "Shape_Area": 6.414997656495007e-8,
+        "firma_adi": "HS MMÜTEAHHİTLİK - VOLKAN MARANGOZ İŞ ORTAKLIĞI",
+        "teslim_tarihi": null,
+        "toplam_konut": null,
+        "proje_tipi": null,
+        "ada_parsel": "1101-8",
+        "proje_nitelik": null,
+        "rayic_2025": 27994,
+        "rayic_sokak_adi": "Günal Sokak"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                29.04994000043075,
+                41.004049999707775
+              ],
+              [
+                29.05017000024537,
+                41.004319999568395
+              ],
+              [
+                29.050330000429256,
+                41.00424000037577
+              ],
+              [
+                29.050210000291315,
+                41.00408999975372
+              ],
+              [
+                29.050039999646348,
+                41.00394999959287
+              ],
+              [
+                29.04994000043075,
+                41.004049999707775
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "OBJECTID": 1,
+        "Name": "Bulgurlu Mahallesi 1103 ada 8 parsel",
+        "ilce": "Üsküdar",
+        "parsel": "8",
+        "Pafta": "76",
+        "Nitelik": "Bahçeli Kargir Apartman",
+        "Mahalle": "Bulgurlu",
+        "Ada": 1103,
+        "Alan": "876,00",
+        "Shape_Length": 0.0010873109097635145,
+        "Shape_Area": 6.414997656495007e-8,
+        "firma_adi": "ÖRNEK FİRMA A.Ş. - YENİ PROJE YÖNETİMİ",
+        "teslim_tarihi": null,
+        "toplam_konut": null,
+        "proje_tipi": null,
+        "ada_parsel": "1103-8",
+        "proje_nitelik": null,
+        "ADA_PARSEL": "1103/8"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                29.049499999925104,
+                41.0040299996848
+              ],
+              [
+                29.049740000200927,
+                41.00412000023789
+              ],
+              [
+                29.049979999577374,
+                41.00387000040024
+              ],
+              [
+                29.049959999554403,
+                41.003859999939095
+              ],
+              [
+                29.049729999739725,
+                41.003779999847154
+              ],
+              [
+                29.04966999967081,
+                41.00375000026236
+              ],
+              [
+                29.049499999925104,
+                41.0040299996848
+              ]
+            ]
+          ]
+        ]
+      }
+    }
+  ]
 }

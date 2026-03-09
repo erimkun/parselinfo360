@@ -4,7 +4,9 @@ import {
     ScatterChart, Scatter, Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Cell, ReferenceArea
 } from 'recharts';
 import { TrendingUp, GitCompare, Shield, Zap, Scale, ArrowDownToLine, ClipboardList, Info, Layers, Home } from 'lucide-react';
+import { useCompany } from '../../../contexts/CompanyContext';
 import { dataService } from '../../../services/dataService';
+import type { ProjectOverview } from '../../../services/dataService';
 import { useTheme } from '../../../contexts/ThemeContext';
 import { ScoreInfoTooltip } from '../../common/ScoreInfoTooltip';
 import { scoreExplanations } from '../../../constants/scoreExplanations';
@@ -111,8 +113,10 @@ const InterpretativeTooltip = ({ active, payload, label, text }: any) => {
 export const MarketIndexView: React.FC = () => {
     const { theme } = useTheme();
     const isDark = theme === 'dark';
+    const { adaParsel } = useCompany();
     const [loading, setLoading] = useState(true);
     const [features, setFeatures] = useState<any[]>([]);
+    const [projectOverview, setProjectOverview] = useState<ProjectOverview | null>(null);
 
     // Toggles
     // Toggles
@@ -125,11 +129,27 @@ export const MarketIndexView: React.FC = () => {
     const selectedNeighborhoodName = 'ACIBADEM';
 
     useEffect(() => {
-        dataService.getInvestmentData().then(data => {
-            setFeatures(data);
-            setLoading(false);
-        });
-    }, []);
+        const loadAllData = async () => {
+            setLoading(true);
+            try {
+                // Fetch general neighborhood investment data
+                const invData = await dataService.getInvestmentData();
+                setFeatures(invData);
+
+                // Fetch specific project overview for the 2025 Fair Value
+                if (adaParsel) {
+                    const projData = await dataService.getProjectOverview(adaParsel);
+                    setProjectOverview(projData);
+                }
+            } catch (error) {
+                console.error("Error loading market view data", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadAllData();
+    }, [adaParsel]);
 
     const data = useMemo(() => {
         if (!features.length) return null;
@@ -298,6 +318,54 @@ export const MarketIndexView: React.FC = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
+                {/* --- 0. RAYİÇ BEDELİ BİLGİ KARTI (2025) --- */}
+                {projectOverview?.rayic_2025 && projectOverview?.rayic_sokak_adi && (
+                    <div className="col-span-1 lg:col-span-2 group">
+                        <div className="relative overflow-hidden bg-white dark:bg-slate-800/80 rounded-2xl border border-emerald-100 dark:border-emerald-500/20 shadow-sm transition-all duration-300 hover:shadow-md hover:border-emerald-200 dark:hover:border-emerald-500/40 p-1">
+                            {/* Decorative background gradient */}
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 blur-3xl rounded-full -mr-12 -mt-12 group-hover:bg-emerald-500/10 transition-colors"></div>
+
+                            <div className="relative z-10 flex flex-col md:flex-row items-center gap-4 py-3 px-5">
+                                {/* Left Section: Icon and Label */}
+                                <div className="flex items-center gap-3 pr-6 md:border-r border-gray-100 dark:border-white/5">
+                                    <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shadow-inner">
+                                        <Home size={20} />
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <span className="text-base font-black text-gray-700 dark:text-gray-300 uppercase leading-none truncate max-w-[200px]">
+                                            {projectOverview.rayic_sokak_adi}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                {/* Center Section: Value */}
+                                <div className="flex-1 flex items-center justify-center md:justify-start gap-4">
+                                    <div className="flex items-baseline gap-1">
+                                        <span className="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-500 dark:from-emerald-400 dark:to-teal-400">
+                                            ₺{Number(projectOverview.rayic_2025).toLocaleString()}
+                                        </span>
+                                        <span className="text-sm font-bold text-emerald-600/60 dark:text-emerald-400/60">/ m²</span>
+                                    </div>
+                                    <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50/50 dark:bg-emerald-500/5 border border-emerald-100 dark:border-emerald-500/10">
+                                        <Zap size={10} className="text-emerald-500" />
+                                        <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400">Resmi Rayiç Değeri</span>
+                                    </div>
+                                </div>
+
+                                {/* Right Section: Description/Disclaimer */}
+                                <div className="hidden lg:flex items-center gap-3 pl-6 border-l border-gray-100 dark:border-white/5">
+                                    <div className="text-right">
+                                        <div className="text-[11px] font-bold text-gray-600 dark:text-gray-400">2025 Rayiç Bedeli</div>
+                                    </div>
+                                    <div className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+                                        <Shield size={14} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
                 {/* 1. MARKET CAROUSEL (3 SLIDES) */}
                 <Card title={
                     <div className="flex items-center justify-center gap-1">
@@ -337,7 +405,7 @@ export const MarketIndexView: React.FC = () => {
                         <div className="flex bg-gray-100 dark:bg-slate-700 rounded-lg p-1 relative w-fit">
                             <div
                                 className={`absolute top-1 bottom-1 w-1/2 bg-white dark:bg-slate-600 rounded shadow-sm transition-all duration-300 ${(slideIndex === 0 && priceMode === 'sales') || (slideIndex === 1 && listingMode === 'sales') || (slideIndex === 2 && transactionMode === 'units')
-                                        ? 'left-1' : 'left-[calc(50%-4px)] translate-x-full'
+                                    ? 'left-1' : 'left-[calc(50%-4px)] translate-x-full'
                                     }`}
                             ></div>
 
@@ -553,7 +621,7 @@ export const MarketIndexView: React.FC = () => {
                                     <PolarAngleAxis dataKey="subject" tick={{ fontSize: 11, fill: isDark ? '#94a3b8' : '#64748b', fontWeight: 600 }} />
                                     <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
                                     <Radar dataKey="A" stroke="#8B5CF6" fill="#8B5CF6" fillOpacity={0.5} strokeWidth={2} />
-                                    <Tooltip 
+                                    <Tooltip
                                         content={({ active, payload }) => {
                                             if (active && payload && payload.length) {
                                                 return (
@@ -1038,34 +1106,34 @@ function getSummaryText(p: any) {
     const momentum = Number(p.fiyat_momentum || 0).toFixed(2);
     const uzunVade = Number(p.s3_uzunvade_artis_skor || 0).toFixed(2);
     const ilanBaski = Number(p.ilan_baski || 0).toFixed(2);
-    
+
     // Piyasa karakteri belirleme
     let karakter = '';
     if (p.fiyat_momentum > 70) karakter = 'yüksek ivmeli ve dinamik';
     else if (p.fiyat_momentum > 50) karakter = 'dengeli ve hareketli';
     else if (p.fiyat_momentum > 30) karakter = 'ılımlı ve temkinli';
     else karakter = 'sakin ve durağan';
-    
+
     // Risk profili
     let riskProfili = '';
     if (p.piyasa_istikrar > 70) riskProfili = 'Yüksek istikrar ve güvenilir yapısıyla risk profili düşük.';
     else if (p.piyasa_istikrar > 50) riskProfili = 'Makul düzeyde istikrar sunuyor, risk dengeli.';
     else if (p.piyasa_istikrar > 30) riskProfili = 'Dalgalanmalara açık, orta-yüksek risk profili.';
     else riskProfili = 'Volatilite yüksek, risk toleransı gerektiren bir yapı.';
-    
+
     // Uzun vade değerlendirme
     let uzunVadeYorum = '';
     if (p.s3_uzunvade_artis_skor > 80) uzunVadeYorum = 'Uzun vadeli yatırım stratejileri için oldukça cazip.';
     else if (p.s3_uzunvade_artis_skor > 60) uzunVadeYorum = 'Uzun vadeli portföylere uygun bir potansiyel sunuyor.';
     else if (p.s3_uzunvade_artis_skor > 40) uzunVadeYorum = 'Uzun vadede seçici yaklaşım gerektiren bir profil.';
     else uzunVadeYorum = 'Kısa-orta vadeli stratejiler daha uygun görünüyor.';
-    
+
     // Arz durumu
     let arzDurum = '';
     if (p.ilan_baski > 70) arzDurum = 'Yüksek ilan baskısı fiyat beklentilerini sınırlıyor.';
     else if (p.ilan_baski > 50) arzDurum = 'Arz tarafında rekabetçi bir ortam mevcut.';
     else if (p.ilan_baski > 30) arzDurum = 'Arz-talep dengesi kontrol altında.';
     else arzDurum = 'Düşük arz ortamı fiyatları destekliyor.';
-    
+
     return `Bölge ${istikrar} istikrar skoru ve ${momentum} momentum değeriyle ${karakter} bir piyasa yapısına sahip. ${riskProfili} ${arzDurum} ${uzunVadeYorum}`;
 }

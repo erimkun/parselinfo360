@@ -73,6 +73,8 @@ export interface ProjectOverview {
     };
     image?: string;
     firmaAdi?: string;
+    rayic_2025?: number;
+    rayic_sokak_adi?: string;
 }
 
 export interface DemographicsData {
@@ -141,23 +143,29 @@ export const dataService = {
         try {
             const res = await fetch('/data/proje/parsel360.geojson');
             const data = await res.json() as GeoJSONCollection;
-            
-            // ada_parsel ile feature bul
-            const feature = data.features.find((f: GeoJSONFeature) => 
-                f.properties.ada_parsel === adaParsel || 
-                f.properties.ADA_PARSEL === adaParsel
+
+            // ada-parsel ile feature bul
+            const formattedAdaParsel = adaParsel.replace('_', '-');
+            const feature = data.features.find((f: GeoJSONFeature) =>
+                f.properties['ada-parsel'] === formattedAdaParsel ||
+                // Keep backward compatibility for existing files pending full migration if necessary
+                f.properties.ada_parsel === formattedAdaParsel ||
+                f.properties.ADA_PARSEL === formattedAdaParsel
             );
-            
+
             if (!feature) {
                 console.error('Parsel bulunamadı:', adaParsel);
                 return null;
             }
-            
+
             const props = feature.properties;
-            
+
             // GeoJSON verilerinden ProjectOverview oluştur
+            const safeId = String(props['ada-parsel'] || props.ada_parsel || `${props.Ada}_${props.parsel}`);
+            const displayId = safeId.replace('-', '_');
+
             return {
-                id: String(props.ada_parsel || `${props.Ada}_${props.parsel}`),
+                id: displayId,
                 name: String(props.Name || `${props.Mahalle} Mahallesi ${props.Ada}-ada-${props.parsel}-parsel`),
                 address: `${props.Mahalle}, ${props.ilce}`,
                 coordinates: [41.004, 29.050], // Geometri merkezinden hesaplanabilir
@@ -168,13 +176,16 @@ export const dataService = {
                 description: String(props.proje_nitelik || `${props.Mahalle} Mahallesi'nde ${props.Alan} m² arsa alanına sahip ${props.Nitelik} nitelikli parsel.`),
                 tags: props.proje_nitelik ? String(props.proje_nitelik).split(',').map(s => s.trim()) : ['Konut'],
                 parcelInfo: {
-                    adaParsel: `${props.Ada} / ${props.parsel}`,
+                    adaParsel: `${props.Ada || displayId.split('_')[0]} / ${props.parsel || displayId.split('_')[1]}`,
                     tapuAlani: `${props.Alan} m²`,
                     imarDurumu: String(props.Nitelik || 'Konut')
                 },
-                image: `/data/project_pics/${props.ada_parsel}.png`,
+                image: `/data/project_pics/${displayId}.png`,
                 // Ek firma bilgisi
-                firmaAdi: String(props.firma_adi || '').trim()
+                firmaAdi: String(props.firma_adi || '').trim(),
+                // 2025 Rayiç Değerleri (Opsiyonel)
+                rayic_2025: props.rayic_2025 ? Number(props.rayic_2025) : undefined,
+                rayic_sokak_adi: props.rayic_sokak_adi ? String(props.rayic_sokak_adi) : undefined
             };
         } catch (error) {
             console.error('Error fetching project overview:', error);
@@ -230,19 +241,20 @@ export const dataService = {
         try {
             const res = await fetch('/data/proje/parsel360.geojson');
             const data = await res.json() as GeoJSONCollection;
-            // ada_parsel ile filtreleme
-            const feature = data.features.find((f: GeoJSONFeature) => 
-                f.properties.ada_parsel === adaParsel || 
-                f.properties.ADA_PARSEL === adaParsel
+            const formattedAdaParsel = adaParsel.replace('_', '-');
+            const feature = data.features.find((f: GeoJSONFeature) =>
+                f.properties['ada-parsel'] === formattedAdaParsel ||
+                f.properties.ada_parsel === formattedAdaParsel ||
+                f.properties.ADA_PARSEL === formattedAdaParsel
             );
-            return feature ? { type: 'FeatureCollection', features: [feature] } : data;
+            return feature ? { type: 'FeatureCollection', features: [feature] } : { type: 'FeatureCollection', features: [] };
         } catch (error) {
             console.error('Error fetching parcel data:', error);
             return { type: 'FeatureCollection', features: [] };
         }
     },
 
-    getPoisByCategory: async (category: string) => {
+    getPoisByCategory: async (category: string, adaParsel: string) => {
         // Map internal category names (English) to the GeoJSON 'kategori' property (Turkish)
         const categoryMap: Record<string, string> = {
             transport: 'Ulaşım',
@@ -253,32 +265,56 @@ export const dataService = {
         };
 
         const targetCategory = categoryMap[category];
-        if (!targetCategory) return { type: 'FeatureCollection', features: [] };
+        if (!targetCategory || !adaParsel) return { type: 'FeatureCollection', features: [] };
+
+        // Format adaParsel to match data format (e.g. 1101_8 -> 1101-8)
+        const formattedAdaParsel = adaParsel.replace('_', '-');
 
         try {
-            const res = await fetch('/data/proje/olanaklar_poi_1101_8.geojson');
+            const res = await fetch('/data/proje/olanak_poi.geojson');
             const data = await res.json() as GeoJSONCollection;
 
-            // Filter features by the matched Turkish category name
-            const filteredFeatures = data.features.filter((f: GeoJSONFeature) =>
-                f.properties.kategori === targetCategory
-            );
+            // Filter features by ada-parsel and category
+            const filteredFeatures = data.features.filter((f: GeoJSONFeature) => {
+                // GeoJSON içinde 'ada_parsel' veya 'ada-parsel' olabilir
+                const fParsel = f.properties.ada_parsel || f.properties['ada-parsel'] || f.properties.ADA_PARSEL;
+
+                // Gelen adaParsel 1101_8 veya 1101-8 olabilir, hepsini 1101-8 standardına çekip karşılaştırıyoruz
+                const standardFParsel = String(fParsel || '').replace('_', '-');
+                const standardTarget = formattedAdaParsel;
+
+                return standardFParsel === standardTarget && f.properties.kategori === targetCategory;
+            });
+
+            // Map the name property so the UI can display it
+            const features = filteredFeatures.map((f: GeoJSONFeature) => ({
+                ...f,
+                properties: {
+                    ...f.properties,
+                    adi: f.properties.poi_adi || 'Bilinmeyen',
+                    ad: f.properties.poi_adi || 'Bilinmeyen'
+                }
+            }));
 
             return {
                 ...data,
-                features: filteredFeatures
+                features: features
             };
         } catch (error) {
-            console.error('Error fetching POI data:', error);
+            console.error('Error fetching POI data by category:', error);
             return { type: 'FeatureCollection', features: [] };
         }
     },
 
     // Olanaklar: ada_parsel ile tek tablodan çekilir
-    // Veri içinde ada_parsel alanı varsa filtrelenir
     getAllPois: async (adaParsel: string) => {
+        if (!adaParsel) return [];
+
+        // Format adaParsel to match data format (e.g. 1101_8 -> 1101-8)
+        const formattedAdaParsel = adaParsel.replace('_', '-');
+
         try {
-            const res = await fetch('/data/proje/olanaklar_poi_1101_8.geojson');
+            const res = await fetch('/data/proje/olanak_poi.geojson');
             const data = await res.json() as GeoJSONCollection;
 
             // Map the Turkish 'kategori' back to our internal English IDs for coloring/logic
@@ -290,21 +326,28 @@ export const dataService = {
                 'Sosyal&Kültürel': 'social'
             };
 
-            // ada_parsel ile filtrele (veri içinde ada_parsel alanı varsa)
-            let filteredFeatures = data.features;
-            if (adaParsel && data.features.some((f: GeoJSONFeature) => f.properties.ada_parsel)) {
-                filteredFeatures = data.features.filter((f: GeoJSONFeature) => 
-                    f.properties.ada_parsel === adaParsel || 
-                    f.properties.ADA_PARSEL === adaParsel
-                );
-            }
+            // ada-parsel ile filtrele
+            const filteredFeatures = data.features.filter((f: GeoJSONFeature) => {
+                const fParsel = f.properties.ada_parsel || f.properties['ada-parsel'] || f.properties.ADA_PARSEL;
+
+                // Hem verideki hem de hedefleneni standardize et (1101-8 formatı)
+                const standardFParsel = String(fParsel || '').replace('_', '-');
+                const standardTarget = formattedAdaParsel;
+
+                return standardFParsel === standardTarget;
+            });
 
             const features = filteredFeatures.map((f: GeoJSONFeature) => {
                 const turkCat = f.properties.kategori as string;
                 const engCat = reverseMap[turkCat] || 'other';
                 return {
                     ...f,
-                    properties: { ...f.properties, _category: engCat }
+                    properties: {
+                        ...f.properties,
+                        _category: engCat,
+                        adi: f.properties.poi_adi || 'Bilinmeyen',
+                        ad: f.properties.poi_adi || 'Bilinmeyen'
+                    }
                 };
             });
 
@@ -337,33 +380,36 @@ export const dataService = {
         }
     },
 
-    // Service area: ada_parsel ile filtrelenir
-    // Veri içinde ada_parsel alanı varsa filtrelenir
+    // Service area: ada_parsel ile dinamik dosyadan (veya ortak dosyadan) çekilir
     getServiceArea: async (adaParsel: string, aaMins?: number) => {
         try {
-            const res = await fetch('/data/proje/service_area_1101_8.geojson');
+            const formattedAdaParsel = adaParsel.replace('_', '-');
+            // Ortak Service Area veritabanından çek ve parsel adına göre filtrele
+            const res = await fetch('/data/proje/service_areas.geojson');
+
             if (!res.ok) {
                 console.error('Service area fetch failed:', res.status, res.statusText);
                 return { type: 'FeatureCollection', features: [] };
             }
+
             const data = await res.json() as GeoJSONCollection;
-            
-            // ada_parsel ile filtrele (veri içinde ada_parsel alanı varsa)
+
+            // ada-parsel'e göre filtrele
             let filteredFeatures = data.features;
-            if (adaParsel && data.features.some((f: GeoJSONFeature) => f.properties.ada_parsel)) {
-                filteredFeatures = data.features.filter((f: GeoJSONFeature) => 
-                    f.properties.ada_parsel === adaParsel || 
-                    f.properties.ADA_PARSEL === adaParsel
-                );
+            if (formattedAdaParsel) {
+                filteredFeatures = data.features.filter((f: GeoJSONFeature) => {
+                    const fParsel = f.properties['ada-parsel'] || f.properties.ada_parsel || f.properties.ADA_PARSEL;
+                    return fParsel === formattedAdaParsel;
+                });
             }
-            
+
             // aa_mins parametresi varsa ek filtre uygula
             if (aaMins !== undefined) {
-                filteredFeatures = filteredFeatures.filter((f: GeoJSONFeature) => 
+                filteredFeatures = filteredFeatures.filter((f: GeoJSONFeature) =>
                     f.properties.AA_MINS === aaMins
                 );
             }
-            
+
             console.log('Service area loaded:', filteredFeatures.length, 'features');
             return { ...data, features: filteredFeatures };
         } catch (error) {

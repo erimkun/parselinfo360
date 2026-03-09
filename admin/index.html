@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parsel360 - Admin Paneli</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        input[type="file"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #f8fafc;
+            border: 1px dashed #cbd5e0;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2b6cb0;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #2b6cb0;
+        }
+
+        .btn:disabled {
+            background-color: #a0aec0;
+            cursor: not-allowed;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert.success {
+            background-color: #c6f6d5;
+            color: #2f855a;
+            border: 1px solid #9ae6b4;
+            display: block;
+        }
+
+        .alert.error {
+            background-color: #fed7d7;
+            color: #c53030;
+            border: 1px solid #feb2b2;
+            display: block;
+        }
+
+        .help-text {
+            font-size: 0.85rem;
+            color: #718096;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>🏗️ Parsel360 Proje Ekleme Paneli</h1>
+        <p style="color: #4a5568; margin-bottom: 30px;">
+            Bu panel aracılığıyla sisteme yeni bir proje (ada_parsel) ekleyebilir ve firmanın sadece kendisine ait olan
+            erişim verilerini (Giriş Şifresi, Parsel Koordinatı, Olanaklar Matrisi, Nasıl Giderim Rotası) sisteme dahil
+            edebilirsiniz.
+        </p>
+
+        <div id="messageBox" class="alert"></div>
+
+        <form id="projectForm">
+            <div class="section-title">1. Proje ve Giriş Bilgileri</div>
+
+            <div class="form-group">
+                <label for="firmaAdi">Firma Adı (Ekranda Gözükecek İsim)</label>
+                <input type="text" id="firmaAdi" name="firmaAdi" placeholder="Örn: X İNŞAAT A.Ş." required>
+            </div>
+
+            <div class="form-group">
+                <label for="projeAdi">Proje Adı</label>
+                <input type="text" id="projeAdi" name="projeAdi" placeholder="Örn: X Prestij Konutları" required>
+            </div>
+
+            <div class="form-group">
+                <label for="adaParsel">Ada / Parsel (Kimlik)</label>
+                <input type="text" id="adaParsel" name="adaParsel" placeholder="Örn: 1105-8" required>
+                <div class="help-text">Not: Dosyalardaki formatınız neyse onu girin (örn: tireli 1105-8 veya alt çizgili
+                    1105_8). Sistem otomatik olarak formatlar arası eşleşme sağlayacaktır.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="sifre">Giriş Şifresi</label>
+                <input type="password" id="sifre" name="sifre" placeholder="Şifre belirleyin" required>
+            </div>
+
+            <div class="section-title">2. Proje Veri Katmanları (Opsiyonel)</div>
+            <div class="help-text" style="margin-bottom: 15px;">Aşağıdaki dosyaları yüklerseniz sistem otomatik olarak
+                ilgili ana dosyalara (append) yaparak bu parselin verilerini kalıcı hale getirecektir.</div>
+
+            <div class="form-group">
+                <label for="parsel360_file">Proje Sınırı (parsel360.geojson append)</label>
+                <input type="file" id="parsel360_file" name="parsel360_file" accept=".geojson,.json">
+                <div class="help-text">Alan ve konum bilgilerini barındıran GeoJSON.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="distance_matrix_file">Olanaklar (distance_matrix_combined.geojson append)</label>
+                <input type="file" id="distance_matrix_file" name="distance_matrix_file" accept=".geojson,.json">
+                <div class="help-text">Yakın çevredeki POI noktalarını barındıran GeoJSON.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="trip_layer_file">Nasıl Giderim Rotaları (trip_layer_data.json append)</label>
+                <input type="file" id="trip_layer_file" name="trip_layer_file" accept=".json">
+                <div class="help-text">Önemli merkezlere ulaşım rotalarındaki koordinat animasyonlarını barındıran JSON.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="service_area_file">Hizmet Alanı Sınırları (Service Area GeoJSON upload)</label>
+                <input type="file" id="service_area_file" name="service_area_file" accept=".geojson,.json">
+                <div class="help-text">Farklı yürüme mesafelerindeki ulaşılabilirlik poligonlarını barındıran GeoJSON
+                    (5, 10, 15 dk).</div>
+            </div>
+
+            <div class="form-group" style="border-top: 1px solid #e2e8f0; padding-top: 15px;">
+                <label for="report_file">Proje Raporu (PDF/Doc)</label>
+                <input type="file" id="report_file" name="report_file" accept=".pdf,.doc,.docx">
+                <div class="help-text">Bu dosya public/data/rapor/ altına [ada-parsel] ismiyle kaydedilecektir.</div>
+            </div>
+
+            <button type="submit" id="submitBtn" class="btn">🚀 Projeyi Sisteme Kaydet</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('projectForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const form = e.target;
+            const submitBtn = document.getElementById('submitBtn');
+            const messageBox = document.getElementById('messageBox');
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Yükleniyor... Lütfen Bekleyin ⏳';
+            messageBox.className = 'alert';
+            messageBox.style.display = 'none';
+
+            try {
+                const formData = new FormData(form);
+
+                const response = await fetch('/api/project', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    messageBox.className = 'alert success';
+                    messageBox.innerText = '✅ Başarılı! ' + result.message + ' Yeni parseliniz eklendi.';
+                    form.reset();
+                } else {
+                    messageBox.className = 'alert error';
+                    messageBox.innerText = '❌ Hata: ' + result.error;
+                }
+            } catch (error) {
+                messageBox.className = 'alert error';
+                messageBox.innerText = '❌ Sunucuya bağlanılamadı. Uygulamanın çalışıp çalışmadığını kontrol edin.';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = '🚀 Projeyi Sisteme Kaydet';
+            }
+        });
+    </script>
+
+</body>
+
+</html>

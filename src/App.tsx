@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, Suspense, lazy } from 'react';
 import LoginPage from './components/LoginPage';
 import { useCompany } from './contexts/CompanyContext';
 import { MainLayout } from './components/layout/MainLayout';
@@ -11,8 +11,21 @@ import { OverviewView } from './components/features/panel/OverviewView';
 import { StrategyView } from './components/features/panel/StrategyView';
 import { dataService } from './services/dataService';
 
+// Gizli Admin Modülü Tembel Yükleme
+const SystemDataModule = lazy(() => import('./components/SystemDataModule'));
 
 function App() {
+  // Gizli Rota State'i
+  const [isAdminRoute, setIsAdminRoute] = useState(() => window.location.hash === '#kentas-manager');
+
+  // URL Hash değişikliklerini dinle
+  useEffect(() => {
+    const handleHashChange = () => {
+      setIsAdminRoute(window.location.hash === '#kentas-manager');
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
   // Kullanıcı ve proje bilgileri contextten alınır
   const { user, adaParsel, login, authReady } = useCompany();
   const [activeTab, setActiveTab] = useState<TabId>('capabilities');
@@ -33,9 +46,9 @@ function App() {
   // Load Data (adaParsel değişince)
   useEffect(() => {
     if (!adaParsel) return;
-    
+
     setIsDataLoaded(false); // Yükleme başladı
-    
+
     // Tüm verileri paralel yükle
     Promise.all([
       dataService.getMapBoundary(),
@@ -49,7 +62,7 @@ function App() {
       setPoiData(pois);
       setAllServiceAreaData(serviceArea);
       setNeighborhoodData(neighborhoods);
-      
+
       // Kısa bir gecikme ile haritayı göster (titreme önleme)
       setTimeout(() => setIsDataLoaded(true), 50);
     }).catch(console.error);
@@ -58,17 +71,17 @@ function App() {
   // Service Area filtreleme (walkingDistance'a göre client-side)
   const filteredServiceArea = useMemo(() => {
     if (!allServiceAreaData?.features) return null;
-    
+
     // walkingDistance null ise tüm poligonları göster
     if (walkingDistance === null) {
       return allServiceAreaData;
     }
-    
+
     // Seçilen dakikaya göre filtrele (AA_MINS = 5, 10 veya 15)
     const filtered = allServiceAreaData.features.filter(
       (f: any) => f.properties?.AA_MINS === walkingDistance
     );
-    
+
     return {
       ...allServiceAreaData,
       features: filtered
@@ -78,8 +91,8 @@ function App() {
   // Filter Logic
   const filteredData = useMemo(() => {
     // 1. Filter by Main Category (unless 'all' is selected)
-    let catFiltered = activeCategory === 'all' 
-      ? poiData 
+    let catFiltered = activeCategory === 'all'
+      ? poiData
       : poiData.filter(f => f.properties?._category === activeCategory);
 
     // 2. Filter by Walking Distance (if selected)
@@ -149,6 +162,18 @@ function App() {
         return null;
     }
   };
+
+  if (isAdminRoute) {
+    return (
+      <Suspense fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      }>
+        <SystemDataModule />
+      </Suspense>
+    );
+  }
 
   if (!authReady) {
     return (
