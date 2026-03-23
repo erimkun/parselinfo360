@@ -29,6 +29,7 @@ function App() {
   // Kullanıcı ve proje bilgileri contextten alınır
   const { user, adaParsel, login, authReady } = useCompany();
   const [activeTab, setActiveTab] = useState<TabId>('capabilities');
+  const [mobileView, setMobileView] = useState<'sidebar' | 'map'>('map');
 
   // Data State
   const [poiData, setPoiData] = useState<any[]>([]);
@@ -192,6 +193,8 @@ function App() {
 
   return (
     <MainLayout
+      mobileView={mobileView}
+      onMobileViewChange={setMobileView}
       sidebar={
         <Sidebar activeTab={activeTab} onTabChange={setActiveTab} parcelData={parcelData}>
           {/* Proje bilgisi üstte gösterilir - Firma adı parsel360.geojson'dan gelir */}
@@ -212,6 +215,7 @@ function App() {
             projectParcel={parcelData}
             serviceArea={filteredServiceArea}
             neighborhoods={neighborhoodData}
+            mobileView={mobileView}
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-800">

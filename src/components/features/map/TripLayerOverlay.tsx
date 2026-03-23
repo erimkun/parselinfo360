@@ -414,39 +414,63 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
             />
 
             {/* Control Panel */}
-            <div className="absolute top-20 right-6 z-[1001] transition-all duration-300">
-                <div className="bg-white/20 dark:bg-slate-900/25 backdrop-blur-2xl rounded-2xl border border-white/30 dark:border-white/15 shadow-xl w-80 max-h-[calc(100vh-160px)] overflow-hidden">
+            <div className={cn(
+                "absolute top-20 left-4 right-4 sm:left-auto sm:right-6 z-[1001] transition-all duration-500 ease-in-out",
+                selectedRoute !== null && isPlaying ? "top-6 sm:top-20" : "top-20"
+            )}>
+                <div className={cn(
+                    "bg-white/20 dark:bg-slate-900/25 backdrop-blur-2xl rounded-2xl border border-white/30 dark:border-white/15 shadow-xl transition-all duration-500",
+                    "w-full sm:w-80",
+                    selectedRoute !== null && isPlaying ? "max-h-24 overflow-hidden" : "max-h-[calc(100vh-160px)]"
+                )}>
 
                     {/* Ambient Glow - Sidebar ile aynı */}
                     <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-blue-500/5 dark:from-white/5 to-transparent pointer-events-none rounded-t-2xl" />
                     <div className="absolute -top-10 -left-10 w-40 h-40 bg-indigo-500/5 dark:bg-indigo-500/10 blur-[60px] pointer-events-none rounded-full" />
 
                     {/* Header */}
-                    <div className="flex items-center justify-between px-4 py-4 border-b border-gray-100 dark:border-white/10 relative z-10">
+                    <div className="flex items-center justify-between px-4 py-4 border-b border-gray-100 dark:border-white/10 relative z-10 transition-all">
                         <div className="flex items-center gap-3">
-                            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-md">
+                            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-md shrink-0">
                                 <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                                     <path d="M9 3L5 7l4 4M15 3l4 4-4 4" />
                                     <path d="M5 17c0-4 3-6 7-6s7 2 7 6" />
                                     <circle cx="12" cy="19" r="2" />
                                 </svg>
                             </div>
-                            <div>
-                                <h3 className="text-gray-900 dark:text-white font-bold text-sm tracking-tight">Nasıl Giderim?</h3>
-                                <p className="text-gray-500 dark:text-blue-200/80 text-xs font-medium mt-0.5 uppercase tracking-wide">Rota seçin</p>
+                            <div className="min-w-0">
+                                <h3 className="text-gray-900 dark:text-white font-bold text-sm tracking-tight truncate">
+                                    {selectedRoute !== null && isPlaying ? routes[selectedRoute]?.name : 'Nasıl Giderim?'}
+                                </h3>
+                                <p className="text-gray-500 dark:text-blue-200/80 text-[10px] font-medium mt-0.5 uppercase tracking-wide">
+                                    {selectedRoute !== null && isPlaying ? 'Rota İzleniyor' : 'Rota Seçin'}
+                                </p>
                             </div>
                         </div>
-                        <button
-                            onClick={onClose}
-                            className="p-2.5 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/15 text-gray-600 dark:text-white/80 hover:text-gray-900 dark:hover:text-white border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-white/20 transition-all shadow-sm"
-                        >
-                            <X size={16} />
-                        </button>
+                        <div className="flex items-center gap-2">
+                            {selectedRoute !== null && isPlaying && (
+                                <button
+                                    onClick={() => setIsPlaying(false)}
+                                    className="p-2 rounded-lg bg-indigo-600 dark:bg-indigo-500 text-white shadow-lg lg:hidden"
+                                >
+                                    <Pause size={14} />
+                                </button>
+                            )}
+                            <button
+                                onClick={onClose}
+                                className="p-2.5 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/15 text-gray-600 dark:text-white/80 border border-gray-200 dark:border-white/5 transition-all shadow-sm"
+                            >
+                                <X size={16} />
+                            </button>
+                        </div>
                     </div>
 
-                    {/* Routes List */}
+                    {/* Routes List - Hidden during playback to maximize map */}
                     <div
-                        className="p-3 overflow-y-auto max-h-[400px] space-y-2 relative z-10 custom-scrollbar"
+                        className={cn(
+                            "p-3 overflow-y-auto space-y-2 relative z-10 custom-scrollbar transition-all duration-500",
+                            selectedRoute !== null && isPlaying ? "opacity-0 pointer-events-none h-0 p-0" : "opacity-100 max-h-[400px]"
+                        )}
                         onMouseEnter={() => map.scrollWheelZoom.disable()}
                         onMouseLeave={() => map.scrollWheelZoom.enable()}
                         onWheel={(e) => e.stopPropagation()}
@@ -486,34 +510,32 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
                     </div>
 
                     {/* Controls Footer */}
-                    <div className="px-4 py-3 border-t border-gray-100 dark:border-white/10 bg-gray-50/50 dark:bg-slate-900/40 flex items-center justify-between relative z-10 backdrop-blur-md rounded-b-2xl">
+                    <div className={cn(
+                        "px-4 py-3 border-t border-gray-100 dark:border-white/10 bg-gray-50/50 dark:bg-slate-900/40 flex items-center justify-between relative z-10 backdrop-blur-md rounded-b-2xl transition-all duration-500",
+                        selectedRoute !== null && isPlaying ? "opacity-0 h-0 p-0 overflow-hidden" : "opacity-100"
+                    )}>
                         <div className="text-xs font-medium text-gray-500 dark:text-gray-400 truncate max-w-[160px]">
                             {selectedRoute !== null ? routes[selectedRoute]?.name : 'Rota seçin'}
                         </div>
                         <div className="flex gap-2">
                             {selectedRoute !== null && (
-                                <>
-                                    <button
-                                        onClick={() => setIsPlaying(!isPlaying)}
-                                        className="p-2 rounded-lg bg-indigo-600 dark:bg-indigo-500 hover:bg-indigo-700 dark:hover:bg-indigo-600 text-white transition-all shadow-sm"
-                                    >
-                                        {isPlaying ? <Pause size={15} /> : <Play size={15} />}
-                                    </button>
-                                    <button
-                                        onClick={handleReset}
-                                        className="p-2 rounded-lg bg-gray-200 dark:bg-white/10 hover:bg-gray-300 dark:hover:bg-white/20 text-gray-700 dark:text-white transition-all shadow-sm"
-                                    >
-                                        <RotateCcw size={15} />
-                                    </button>
-                                </>
+                                <button
+                                    onClick={handleReset}
+                                    className="p-2 rounded-lg bg-gray-200 dark:bg-white/10 hover:bg-gray-300 dark:hover:bg-white/20 text-gray-700 dark:text-white transition-all shadow-sm"
+                                >
+                                    <RotateCcw size={15} />
+                                </button>
                             )}
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Start Point Info */}
-            <div className="absolute bottom-24 left-6 lg:left-[calc(40%+1.5rem)] z-[1001] bg-white/20 dark:bg-slate-900/25 backdrop-blur-2xl px-4 py-3 rounded-xl border border-white/30 dark:border-white/15 shadow-lg">
+            {/* Start Point Info - Mobilde daha yukarıda ya da gizli */}
+            <div className={cn(
+                "fixed bottom-24 left-6 sm:left-[calc(40%+1.5rem)] z-[1001] bg-white/20 dark:bg-slate-900/25 backdrop-blur-2xl px-4 py-3 rounded-xl border border-white/30 dark:border-white/15 shadow-lg transition-all duration-500",
+                selectedRoute !== null && isPlaying ? "opacity-0 scale-95 pointer-events-none" : "opacity-100 scale-100"
+            )}>
                 <div className="text-[10px] uppercase tracking-wider text-gray-500 dark:text-white/70 font-bold">Başlangıç</div>
                 <div className="text-gray-900 dark:text-white font-semibold text-sm">Proje Konumu</div>
             </div>

@@ -88,6 +88,7 @@ interface MapContainerProps {
     projectParcel?: any;
     serviceArea?: any;
     neighborhoods?: any;
+    mobileView?: 'sidebar' | 'map';
 }
 
 // Icon Mapping Strategy (Smaller Icons)
@@ -211,7 +212,7 @@ const MapInitialFit = ({ projectParcel }: { projectParcel?: any }) => {
     return null;
 };
 
-export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neighborhoods }: MapContainerProps) => {
+export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neighborhoods, mobileView }: MapContainerProps) => {
     // Standard default center
     const defaultCenter: [number, number] = [41.025, 29.015];
     
@@ -518,18 +519,32 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
 
                 <MeasureLayer />
 
+                {/* Start Point Info - Map tab açıkken en altta sabit */}
+                <div className={cn(
+                    "absolute bottom-24 left-6 lg:left-[calc(40%+1.5rem)] z-[400] bg-white/20 dark:bg-slate-900/25 backdrop-blur-2xl px-4 py-3 rounded-xl border border-white/30 dark:border-white/15 shadow-lg transition-opacity duration-300",
+                    mobileView === 'sidebar' && "opacity-0 lg:opacity-100"
+                )}>
+                    <div className="text-[10px] uppercase tracking-wider text-gray-500 dark:text-white/70 font-bold">Başlangıç</div>
+                    <div className="text-gray-900 dark:text-white font-semibold text-sm">Proje Konumu</div>
+                </div>
+
             </PacketMapContainer>
 
             {/* Map Tools */}
-            <MapTools
-                activeTool={activeTool}
-                onToolSelect={setActiveTool}
-                onClear={handleClear}
-                onFocus={() => setFocusTrigger(prev => prev + 1)}
-            />
+            <div className={cn("transition-opacity duration-300", mobileView === 'sidebar' && "opacity-0 pointer-events-none lg:opacity-100 lg:pointer-events-auto")}>
+                <MapTools
+                    activeTool={activeTool}
+                    onToolSelect={setActiveTool}
+                    onClear={handleClear}
+                    onFocus={() => setFocusTrigger(prev => prev + 1)}
+                />
+            </div>
 
             {/* Service Area & Trip Layer Buttons - Top Left (sidebar sonrasına konumlandırıldı) */}
-            <div className="absolute top-6 left-6 lg:left-[calc(40%+1.5rem)] z-[1000] flex flex-col sm:flex-row gap-2">
+            <div className={cn(
+                "absolute top-6 left-6 lg:left-[calc(40%+1.5rem)] z-[1000] flex flex-col sm:flex-row gap-2 transition-opacity duration-300",
+                mobileView === 'sidebar' && "opacity-0 pointer-events-none lg:opacity-100 lg:pointer-events-auto"
+            )}>
                 <button
                     onClick={() => setServiceAreaVisible(!serviceAreaVisible)}
                     className={`flex flex-col items-center gap-1 px-4 py-3 rounded-xl shadow-2xl border transition-all backdrop-blur-xl ${
@@ -572,7 +587,10 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
             </div>
 
             {/* Collapsible Legend - Toggle Button */}
-            <div className="absolute bottom-6 left-6 lg:left-[calc(40%+1.5rem)] z-[1000] pointer-events-none">
+            <div className={cn(
+                "absolute bottom-6 left-6 lg:left-[calc(40%+1.5rem)] z-[1000] pointer-events-none transition-opacity duration-300",
+                mobileView === 'sidebar' && "opacity-0 lg:opacity-100"
+            )}>
                 <div className="pointer-events-auto">
                     {/* Toggle Button */}
                     {!legendOpen && (

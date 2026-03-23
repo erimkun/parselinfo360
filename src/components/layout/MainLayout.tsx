@@ -4,11 +4,11 @@ import { Map, PanelLeft } from 'lucide-react';
 interface MainLayoutProps {
     sidebar: ReactNode;
     map: ReactNode;
+    mobileView: 'sidebar' | 'map';
+    onMobileViewChange: (view: 'sidebar' | 'map') => void;
 }
 
-export const MainLayout: FC<MainLayoutProps> = ({ sidebar, map }) => {
-    const [mobileView, setMobileView] = useState<'sidebar' | 'map'>('sidebar');
-
+export const MainLayout: FC<MainLayoutProps> = ({ sidebar, map, mobileView, onMobileViewChange }) => {
     return (
         <div className="relative h-screen overflow-hidden bg-background-light dark:bg-background-dark font-display text-text-primary-light dark:text-text-primary-dark transition-colors duration-300">
             {/* Map - Full screen background */}
@@ -26,7 +26,7 @@ export const MainLayout: FC<MainLayoutProps> = ({ sidebar, map }) => {
 
             {/* Mobile Toggle Button - Sadece mobilde görünür */}
             <button
-                onClick={() => setMobileView(mobileView === 'sidebar' ? 'map' : 'sidebar')}
+                onClick={() => onMobileViewChange(mobileView === 'sidebar' ? 'map' : 'sidebar')}
                 className="
                     lg:hidden fixed bottom-6 right-6 z-50
                     w-14 h-14 rounded-full
