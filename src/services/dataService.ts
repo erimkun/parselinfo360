@@ -286,15 +286,26 @@ export const dataService = {
                 return standardFParsel === standardTarget && f.properties.kategori === targetCategory;
             });
 
-            // Map the name property so the UI can display it
-            const features = filteredFeatures.map((f: GeoJSONFeature) => ({
-                ...f,
-                properties: {
-                    ...f.properties,
-                    adi: f.properties.poi_adi || 'Bilinmeyen',
-                    ad: f.properties.poi_adi || 'Bilinmeyen'
-                }
-            }));
+            // Map the name and distance properties so the UI can display them correctly
+            const features = filteredFeatures.map((f: GeoJSONFeature) => {
+                const distance = Number(f.properties.mesafe_m || 0);
+                const sureDk = f.properties.sure_dk ? Number(f.properties.sure_dk) : null;
+                
+                return {
+                    ...f,
+                    properties: {
+                        ...f.properties,
+                        parsel_uzaklik: distance,
+                        // Calculate walking time flags if missing
+                        minute5: f.properties.minute5 ?? (sureDk !== null ? sureDk <= 5 : distance <= 400),
+                        minute10: f.properties.minute10 ?? (sureDk !== null ? sureDk <= 10 : distance <= 800),
+                        minute15: f.properties.minute15 ?? (sureDk !== null ? sureDk <= 15 : distance <= 1200),
+                        // Fallback name if poi_adi is empty
+                        adi: (f.properties.poi_adi && String(f.properties.poi_adi).trim() !== "") ? f.properties.poi_adi : (f.properties.alt_kategori || 'Bilinmeyen'),
+                        ad: (f.properties.poi_adi && String(f.properties.poi_adi).trim() !== "") ? f.properties.poi_adi : (f.properties.alt_kategori || 'Bilinmeyen')
+                    }
+                };
+            });
 
             return {
                 ...data,
@@ -340,13 +351,22 @@ export const dataService = {
             const features = filteredFeatures.map((f: GeoJSONFeature) => {
                 const turkCat = f.properties.kategori as string;
                 const engCat = reverseMap[turkCat] || 'other';
+                const distance = Number(f.properties.mesafe_m || 0);
+                const sureDk = f.properties.sure_dk ? Number(f.properties.sure_dk) : null;
+
                 return {
                     ...f,
                     properties: {
                         ...f.properties,
                         _category: engCat,
-                        adi: f.properties.poi_adi || 'Bilinmeyen',
-                        ad: f.properties.poi_adi || 'Bilinmeyen'
+                        parsel_uzaklik: distance,
+                        // Calculate walking time flags if missing
+                        minute5: f.properties.minute5 ?? (sureDk !== null ? sureDk <= 5 : distance <= 400),
+                        minute10: f.properties.minute10 ?? (sureDk !== null ? sureDk <= 10 : distance <= 800),
+                        minute15: f.properties.minute15 ?? (sureDk !== null ? sureDk <= 15 : distance <= 1200),
+                        // Fallback name if poi_adi is empty
+                        adi: (f.properties.poi_adi && String(f.properties.poi_adi).trim() !== "") ? f.properties.poi_adi : (f.properties.alt_kategori || 'Bilinmeyen'),
+                        ad: (f.properties.poi_adi && String(f.properties.poi_adi).trim() !== "") ? f.properties.poi_adi : (f.properties.alt_kategori || 'Bilinmeyen')
                     }
                 };
             });

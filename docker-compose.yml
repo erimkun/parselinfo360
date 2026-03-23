@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgis/postgis:15-3.3
+    container_name: parsel360-db
+    environment:
+      POSTGRES_USER: parsel_admin
+      POSTGRES_PASSWORD: secure_password_123
+      POSTGRES_DB: parsel360
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  pgdata:

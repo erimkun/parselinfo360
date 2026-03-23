@@ -16,7 +16,7 @@
         "poi_adi": "Şehit Fethi Camii",
         "kategori": "Yaşam",
         "alt_kategori": "Dini Tesis",
-        "mesafe_m": 211.0,
+        "mesafe_m": 211,
         "mesafe_km": 0.21,
         "sure_sn": 151.9,
         "sure_dk": 2.5
@@ -58,9 +58,9 @@
         "poi_adi": "Faikbey Camii",
         "kategori": "Yaşam",
         "alt_kategori": "Dini Tesis",
-        "mesafe_m": 882.0,
+        "mesafe_m": 882,
         "mesafe_km": 0.88,
-        "sure_sn": 635.0,
+        "sure_sn": 635,
         "sure_dk": 10.6
       },
       "geometry": {
@@ -103,7 +103,7 @@
         "mesafe_m": 250.9,
         "mesafe_km": 0.25,
         "sure_sn": 180.7,
-        "sure_dk": 3.0
+        "sure_dk": 3
       },
       "geometry": {
         "type": "Point",
@@ -163,7 +163,7 @@
         "poi_adi": "Acıbadem Kasabı",
         "kategori": "Yaşam",
         "alt_kategori": "AVM & Market",
-        "mesafe_m": 255.0,
+        "mesafe_m": 255,
         "mesafe_km": 0.25,
         "sure_sn": 183.6,
         "sure_dk": 3.1
@@ -226,7 +226,7 @@
         "poi_adi": "Migros",
         "kategori": "Yaşam",
         "alt_kategori": "AVM & Market",
-        "mesafe_m": 1174.0,
+        "mesafe_m": 1174,
         "mesafe_km": 1.17,
         "sure_sn": 845.3,
         "sure_dk": 14.1
@@ -268,9 +268,9 @@
         "poi_adi": "Carrefoursa - Süper Acıbadem Şubesi",
         "kategori": "Yaşam",
         "alt_kategori": "AVM & Market",
-        "mesafe_m": 893.0,
+        "mesafe_m": 893,
         "mesafe_km": 0.89,
-        "sure_sn": 643.0,
+        "sure_sn": 643,
         "sure_dk": 10.7
       },
       "geometry": {
@@ -373,10 +373,10 @@
         "poi_adi": "Demar Süpermarket",
         "kategori": "Yaşam",
         "alt_kategori": "AVM & Market",
-        "mesafe_m": 1001.0,
-        "mesafe_km": 1.0,
+        "mesafe_m": 1001,
+        "mesafe_km": 1,
         "sure_sn": 720.7,
-        "sure_dk": 12.0
+        "sure_dk": 12
       },
       "geometry": {
         "type": "Point",
@@ -522,7 +522,7 @@
         "alt_kategori": "AVM & Market",
         "mesafe_m": 55.6,
         "mesafe_km": 0.06,
-        "sure_sn": 40.0,
+        "sure_sn": 40,
         "sure_dk": 0.7
       },
       "geometry": {
@@ -562,10 +562,10 @@
         "poi_adi": "Aktaş Market",
         "kategori": "Yaşam",
         "alt_kategori": "AVM & Market",
-        "mesafe_m": 84.0,
+        "mesafe_m": 84,
         "mesafe_km": 0.08,
         "sure_sn": 60.5,
-        "sure_dk": 1.0
+        "sure_dk": 1
       },
       "geometry": {
         "type": "Point",
@@ -670,7 +670,7 @@
         "mesafe_m": 582.6,
         "mesafe_km": 0.58,
         "sure_sn": 419.5,
-        "sure_dk": 7.0
+        "sure_dk": 7
       },
       "geometry": {
         "type": "Point",
@@ -688,7 +688,7 @@
         "poi_adi": "FİLE",
         "kategori": "Yaşam",
         "alt_kategori": "AVM & Market",
-        "mesafe_m": 449.0,
+        "mesafe_m": 449,
         "mesafe_km": 0.45,
         "sure_sn": 323.3,
         "sure_dk": 5.4
@@ -711,7 +711,7 @@
         "alt_kategori": "AVM & Market",
         "mesafe_m": 926.5,
         "mesafe_km": 0.93,
-        "sure_sn": 667.0,
+        "sure_sn": 667,
         "sure_dk": 11.1
       },
       "geometry": {
@@ -858,7 +858,7 @@
         "alt_kategori": "AVM & Market",
         "mesafe_m": 731.9,
         "mesafe_km": 0.73,
-        "sure_sn": 527.0,
+        "sure_sn": 527,
         "sure_dk": 8.8
       },
       "geometry": {
@@ -901,7 +901,7 @@
         "mesafe_m": 333.6,
         "mesafe_km": 0.33,
         "sure_sn": 240.2,
-        "sure_dk": 4.0
+        "sure_dk": 4
       },
       "geometry": {
         "type": "Point",
@@ -921,7 +921,7 @@
         "alt_kategori": "AVM & Market",
         "mesafe_m": 690.3,
         "mesafe_km": 0.69,
-        "sure_sn": 497.0,
+        "sure_sn": 497,
         "sure_dk": 8.3
       },
       "geometry": {
@@ -942,7 +942,7 @@
         "alt_kategori": "AVM & Market",
         "mesafe_m": 761.2,
         "mesafe_km": 0.76,
-        "sure_sn": 548.0,
+        "sure_sn": 548,
         "sure_dk": 9.1
       },
       "geometry": {
@@ -1005,7 +1005,7 @@
         "alt_kategori": "Park",
         "mesafe_m": 859.8,
         "mesafe_km": 0.86,
-        "sure_sn": 619.0,
+        "sure_sn": 619,
         "sure_dk": 10.3
       },
       "geometry": {
@@ -1129,7 +1129,7 @@
         "poi_adi": "Valievleri Parkı",
         "kategori": "Yaşam",
         "alt_kategori": "Park",
-        "mesafe_m": 923.0,
+        "mesafe_m": 923,
         "mesafe_km": 0.92,
         "sure_sn": 664.5,
         "sure_dk": 11.1
@@ -1153,7 +1153,7 @@
         "mesafe_m": 1497.8,
         "mesafe_km": 1.5,
         "sure_sn": 1078.4,
-        "sure_dk": 18.0
+        "sure_dk": 18
       },
       "geometry": {
         "type": "Point",
@@ -1278,7 +1278,7 @@
         "alt_kategori": "Otobüs",
         "mesafe_m": 679.2,
         "mesafe_km": 0.68,
-        "sure_sn": 489.0,
+        "sure_sn": 489,
         "sure_dk": 8.2
       },
       "geometry": {
@@ -1299,7 +1299,7 @@
         "alt_kategori": "Otobüs",
         "mesafe_m": 872.2,
         "mesafe_km": 0.87,
-        "sure_sn": 628.0,
+        "sure_sn": 628,
         "sure_dk": 10.5
       },
       "geometry": {
@@ -1318,10 +1318,10 @@
         "poi_adi": "ACIBADEM CADDESİ Durağı",
         "kategori": "Ulaşım",
         "alt_kategori": "Otobüs",
-        "mesafe_m": 999.0,
-        "mesafe_km": 1.0,
+        "mesafe_m": 999,
+        "mesafe_km": 1,
         "sure_sn": 719.3,
-        "sure_dk": 12.0
+        "sure_dk": 12
       },
       "geometry": {
         "type": "Point",
@@ -1339,9 +1339,9 @@
         "poi_adi": "TÜRK TELEKOM - ÇAMLICA KIZ LİSESİ Durağı",
         "kategori": "Ulaşım",
         "alt_kategori": "Otobüs",
-        "mesafe_m": 468.0,
+        "mesafe_m": 468,
         "mesafe_km": 0.47,
-        "sure_sn": 337.0,
+        "sure_sn": 337,
         "sure_dk": 5.6
       },
       "geometry": {
@@ -1383,7 +1383,7 @@
         "alt_kategori": "Otobüs",
         "mesafe_m": 1272.3,
         "mesafe_km": 1.27,
-        "sure_sn": 916.0,
+        "sure_sn": 916,
         "sure_dk": 15.3
       },
       "geometry": {
@@ -1444,7 +1444,7 @@
         "poi_adi": "AKASYA KONUTLARI GÖL ETABI Durağı",
         "kategori": "Ulaşım",
         "alt_kategori": "Otobüs",
-        "mesafe_m": 872.0,
+        "mesafe_m": 872,
         "mesafe_km": 0.87,
         "sure_sn": 627.9,
         "sure_dk": 10.5
@@ -1507,10 +1507,10 @@
         "poi_adi": "MİMOZA Durağı",
         "kategori": "Ulaşım",
         "alt_kategori": "Otobüs",
-        "mesafe_m": 1004.0,
-        "mesafe_km": 1.0,
+        "mesafe_m": 1004,
+        "mesafe_km": 1,
         "sure_sn": 722.9,
-        "sure_dk": 12.0
+        "sure_dk": 12
       },
       "geometry": {
         "type": "Point",
@@ -1551,7 +1551,7 @@
         "alt_kategori": "Otobüs",
         "mesafe_m": 912.5,
         "mesafe_km": 0.91,
-        "sure_sn": 657.0,
+        "sure_sn": 657,
         "sure_dk": 10.9
       },
       "geometry": {
@@ -1593,7 +1593,7 @@
         "alt_kategori": "Kafe & Restaurant",
         "mesafe_m": 1059.7,
         "mesafe_km": 1.06,
-        "sure_sn": 763.0,
+        "sure_sn": 763,
         "sure_dk": 12.7
       },
       "geometry": {
@@ -1675,10 +1675,10 @@
         "poi_adi": "Sushico",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 837.0,
+        "mesafe_m": 837,
         "mesafe_km": 0.84,
         "sure_sn": 602.6,
-        "sure_dk": 10.0
+        "sure_dk": 10
       },
       "geometry": {
         "type": "Point",
@@ -1738,9 +1738,9 @@
         "poi_adi": "Cafe Deyim",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 800.0,
+        "mesafe_m": 800,
         "mesafe_km": 0.8,
-        "sure_sn": 576.0,
+        "sure_sn": 576,
         "sure_dk": 9.6
       },
       "geometry": {
@@ -2076,7 +2076,7 @@
         "alt_kategori": "Kafe & Restaurant",
         "mesafe_m": 1186.2,
         "mesafe_km": 1.19,
-        "sure_sn": 854.0,
+        "sure_sn": 854,
         "sure_dk": 14.2
       },
       "geometry": {
@@ -2350,7 +2350,7 @@
         "mesafe_m": 420.7,
         "mesafe_km": 0.42,
         "sure_sn": 302.9,
-        "sure_dk": 5.0
+        "sure_dk": 5
       },
       "geometry": {
         "type": "Point",
@@ -2413,7 +2413,7 @@
         "mesafe_m": 583.7,
         "mesafe_km": 0.58,
         "sure_sn": 420.2,
-        "sure_dk": 7.0
+        "sure_dk": 7
       },
       "geometry": {
         "type": "Point",
@@ -2494,9 +2494,9 @@
         "poi_adi": "Ice Cafe Restaurant",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 900.0,
+        "mesafe_m": 900,
         "mesafe_km": 0.9,
-        "sure_sn": 648.0,
+        "sure_sn": 648,
         "sure_dk": 10.8
       },
       "geometry": {
@@ -2518,7 +2518,7 @@
         "mesafe_m": 750.6,
         "mesafe_km": 0.75,
         "sure_sn": 540.4,
-        "sure_dk": 9.0
+        "sure_dk": 9
       },
       "geometry": {
         "type": "Point",
@@ -2560,7 +2560,7 @@
         "mesafe_m": 586.6,
         "mesafe_km": 0.59,
         "sure_sn": 422.4,
-        "sure_dk": 7.0
+        "sure_dk": 7
       },
       "geometry": {
         "type": "Point",
@@ -2872,7 +2872,7 @@
         "poi_adi": "Teppanda Noodle",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 1088.0,
+        "mesafe_m": 1088,
         "mesafe_km": 1.09,
         "sure_sn": 783.3,
         "sure_dk": 13.1
@@ -2998,9 +2998,9 @@
         "poi_adi": "Cafe Bistro 33",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 764.0,
+        "mesafe_m": 764,
         "mesafe_km": 0.76,
-        "sure_sn": 550.0,
+        "sure_sn": 550,
         "sure_dk": 9.2
       },
       "geometry": {
@@ -3145,7 +3145,7 @@
         "poi_adi": "Günaydın",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 735.0,
+        "mesafe_m": 735,
         "mesafe_km": 0.73,
         "sure_sn": 529.2,
         "sure_dk": 8.8
@@ -3232,7 +3232,7 @@
         "mesafe_m": 1252.7,
         "mesafe_km": 1.25,
         "sure_sn": 901.9,
-        "sure_dk": 15.0
+        "sure_dk": 15
       },
       "geometry": {
         "type": "Point",
@@ -3294,7 +3294,7 @@
         "alt_kategori": "Kafe & Restaurant",
         "mesafe_m": 705.5,
         "mesafe_km": 0.71,
-        "sure_sn": 508.0,
+        "sure_sn": 508,
         "sure_dk": 8.5
       },
       "geometry": {
@@ -3565,7 +3565,7 @@
         "poi_adi": "Happy Moon'S",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 896.0,
+        "mesafe_m": 896,
         "mesafe_km": 0.9,
         "sure_sn": 645.1,
         "sure_dk": 10.8
@@ -3649,7 +3649,7 @@
         "poi_adi": "Havuz Cafe",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 1296.0,
+        "mesafe_m": 1296,
         "mesafe_km": 1.3,
         "sure_sn": 933.1,
         "sure_dk": 15.6
@@ -3799,7 +3799,7 @@
         "mesafe_m": 913.2,
         "mesafe_km": 0.91,
         "sure_sn": 657.5,
-        "sure_dk": 11.0
+        "sure_dk": 11
       },
       "geometry": {
         "type": "Point",
@@ -3838,7 +3838,7 @@
         "poi_adi": "Beritan Market",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 1063.0,
+        "mesafe_m": 1063,
         "mesafe_km": 1.06,
         "sure_sn": 765.3,
         "sure_dk": 12.8
@@ -3904,7 +3904,7 @@
         "mesafe_m": 416.2,
         "mesafe_km": 0.42,
         "sure_sn": 299.7,
-        "sure_dk": 5.0
+        "sure_dk": 5
       },
       "geometry": {
         "type": "Point",
@@ -4216,10 +4216,10 @@
         "poi_adi": "Özel Cindy 1 Polikliniği",
         "kategori": "Sağlık",
         "alt_kategori": "Tıp Merkezi&Poliklinik",
-        "mesafe_m": 1163.0,
+        "mesafe_m": 1163,
         "mesafe_km": 1.16,
         "sure_sn": 837.3,
-        "sure_dk": 14.0
+        "sure_dk": 14
       },
       "geometry": {
         "type": "Point",
@@ -4323,7 +4323,7 @@
         "alt_kategori": "Eczane",
         "mesafe_m": 1108.4,
         "mesafe_km": 1.11,
-        "sure_sn": 798.0,
+        "sure_sn": 798,
         "sure_dk": 13.3
       },
       "geometry": {
@@ -4741,9 +4741,9 @@
         "poi_adi": "HASAN TAN İLKOKULU Anasınıfı",
         "kategori": "Eğitim",
         "alt_kategori": "Kreş & Anaokulu",
-        "mesafe_m": 618.0,
+        "mesafe_m": 618,
         "mesafe_km": 0.62,
-        "sure_sn": 445.0,
+        "sure_sn": 445,
         "sure_dk": 7.4
       },
       "geometry": {
@@ -4764,7 +4764,7 @@
         "alt_kategori": "Kreş & Anaokulu",
         "mesafe_m": 111.1,
         "mesafe_km": 0.11,
-        "sure_sn": 80.0,
+        "sure_sn": 80,
         "sure_dk": 1.3
       },
       "geometry": {
@@ -4783,7 +4783,7 @@
         "poi_adi": "ÖZEL ACIBADEM İLKOKULU Anasınıfı",
         "kategori": "Eğitim",
         "alt_kategori": "Kreş & Anaokulu",
-        "mesafe_m": 195.0,
+        "mesafe_m": 195,
         "mesafe_km": 0.19,
         "sure_sn": 140.4,
         "sure_dk": 2.3
@@ -4827,7 +4827,7 @@
         "alt_kategori": "Kreş & Anaokulu",
         "mesafe_m": 865.4,
         "mesafe_km": 0.87,
-        "sure_sn": 623.0,
+        "sure_sn": 623,
         "sure_dk": 10.4
       },
       "geometry": {
@@ -4933,7 +4933,7 @@
         "mesafe_m": 252.7,
         "mesafe_km": 0.25,
         "sure_sn": 181.9,
-        "sure_dk": 3.0
+        "sure_dk": 3
       },
       "geometry": {
         "type": "Point",
@@ -4996,7 +4996,7 @@
         "mesafe_m": 253.3,
         "mesafe_km": 0.25,
         "sure_sn": 182.4,
-        "sure_dk": 3.0
+        "sure_dk": 3
       },
       "geometry": {
         "type": "Point",
@@ -5204,9 +5204,9 @@
         "kategori": "Yaşam",
         "alt_kategori": "AVM & Market",
         "mesafe_m": 999.3,
-        "mesafe_km": 1.0,
+        "mesafe_km": 1,
         "sure_sn": 719.5,
-        "sure_dk": 12.0
+        "sure_dk": 12
       },
       "geometry": {
         "type": "Point",
@@ -5224,7 +5224,7 @@
         "poi_adi": "Özbesi Et ve Tavuk Kasap",
         "kategori": "Yaşam",
         "alt_kategori": "AVM & Market",
-        "mesafe_m": 304.0,
+        "mesafe_m": 304,
         "mesafe_km": 0.3,
         "sure_sn": 218.9,
         "sure_dk": 3.6
@@ -5289,7 +5289,7 @@
         "alt_kategori": "AVM & Market",
         "mesafe_m": 108.3,
         "mesafe_km": 0.11,
-        "sure_sn": 78.0,
+        "sure_sn": 78,
         "sure_dk": 1.3
       },
       "geometry": {
@@ -5395,7 +5395,7 @@
         "mesafe_m": 85.8,
         "mesafe_km": 0.09,
         "sure_sn": 61.8,
-        "sure_dk": 1.0
+        "sure_dk": 1
       },
       "geometry": {
         "type": "Point",
@@ -5413,7 +5413,7 @@
         "poi_adi": "BİM",
         "kategori": "Yaşam",
         "alt_kategori": "AVM & Market",
-        "mesafe_m": 214.0,
+        "mesafe_m": 214,
         "mesafe_km": 0.21,
         "sure_sn": 154.1,
         "sure_dk": 2.6
@@ -5497,10 +5497,10 @@
         "poi_adi": "A101",
         "kategori": "Yaşam",
         "alt_kategori": "AVM & Market",
-        "mesafe_m": 581.0,
+        "mesafe_m": 581,
         "mesafe_km": 0.58,
         "sure_sn": 418.3,
-        "sure_dk": 7.0
+        "sure_dk": 7
       },
       "geometry": {
         "type": "Point",
@@ -5602,7 +5602,7 @@
         "poi_adi": "Acıbadem Süpermarket",
         "kategori": "Yaşam",
         "alt_kategori": "AVM & Market",
-        "mesafe_m": 123.0,
+        "mesafe_m": 123,
         "mesafe_km": 0.12,
         "sure_sn": 88.6,
         "sure_dk": 1.5
@@ -5646,7 +5646,7 @@
         "alt_kategori": "AVM & Market",
         "mesafe_m": 1362.5,
         "mesafe_km": 1.36,
-        "sure_sn": 981.0,
+        "sure_sn": 981,
         "sure_dk": 16.4
       },
       "geometry": {
@@ -5730,8 +5730,8 @@
         "alt_kategori": "AVM & Market",
         "mesafe_m": 331.9,
         "mesafe_km": 0.33,
-        "sure_sn": 239.0,
-        "sure_dk": 4.0
+        "sure_sn": 239,
+        "sure_dk": 4
       },
       "geometry": {
         "type": "Point",
@@ -5791,7 +5791,7 @@
         "poi_adi": "Mopaş - Acıbadem Şubesi",
         "kategori": "Yaşam",
         "alt_kategori": "AVM & Market",
-        "mesafe_m": 861.0,
+        "mesafe_m": 861,
         "mesafe_km": 0.86,
         "sure_sn": 619.9,
         "sure_dk": 10.3
@@ -5812,7 +5812,7 @@
         "poi_adi": "Sadabad Süt",
         "kategori": "Yaşam",
         "alt_kategori": "AVM & Market",
-        "mesafe_m": 509.0,
+        "mesafe_m": 509,
         "mesafe_km": 0.51,
         "sure_sn": 366.4,
         "sure_dk": 6.1
@@ -5896,7 +5896,7 @@
         "poi_adi": "Gülistan Parkı",
         "kategori": "Yaşam",
         "alt_kategori": "Park",
-        "mesafe_m": 910.0,
+        "mesafe_m": 910,
         "mesafe_km": 0.91,
         "sure_sn": 655.2,
         "sure_dk": 10.9
@@ -5983,7 +5983,7 @@
         "mesafe_m": 1496.1,
         "mesafe_km": 1.5,
         "sure_sn": 1077.2,
-        "sure_dk": 18.0
+        "sure_dk": 18
       },
       "geometry": {
         "type": "Point",
@@ -6087,7 +6087,7 @@
         "alt_kategori": "Otobüs",
         "mesafe_m": 1568.1,
         "mesafe_km": 1.57,
-        "sure_sn": 1129.0,
+        "sure_sn": 1129,
         "sure_dk": 18.8
       },
       "geometry": {
@@ -6149,9 +6149,9 @@
         "kategori": "Ulaşım",
         "alt_kategori": "Otobüs",
         "mesafe_m": 997.4,
-        "mesafe_km": 1.0,
+        "mesafe_km": 1,
         "sure_sn": 718.1,
-        "sure_dk": 12.0
+        "sure_dk": 12
       },
       "geometry": {
         "type": "Point",
@@ -6191,7 +6191,7 @@
         "kategori": "Ulaşım",
         "alt_kategori": "Otobüs",
         "mesafe_m": 1004.9,
-        "mesafe_km": 1.0,
+        "mesafe_km": 1,
         "sure_sn": 723.5,
         "sure_dk": 12.1
       },
@@ -6382,7 +6382,7 @@
         "mesafe_m": 914.2,
         "mesafe_km": 0.91,
         "sure_sn": 658.2,
-        "sure_dk": 11.0
+        "sure_dk": 11
       },
       "geometry": {
         "type": "Point",
@@ -6400,7 +6400,7 @@
         "poi_adi": "Arby'S",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 815.0,
+        "mesafe_m": 815,
         "mesafe_km": 0.82,
         "sure_sn": 586.8,
         "sure_dk": 9.8
@@ -6421,7 +6421,7 @@
         "poi_adi": "Fener Balık Kosuyolu",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 1058.0,
+        "mesafe_m": 1058,
         "mesafe_km": 1.06,
         "sure_sn": 761.8,
         "sure_dk": 12.7
@@ -6633,7 +6633,7 @@
         "alt_kategori": "Kafe & Restaurant",
         "mesafe_m": 780.6,
         "mesafe_km": 0.78,
-        "sure_sn": 562.0,
+        "sure_sn": 562,
         "sure_dk": 9.4
       },
       "geometry": {
@@ -6799,7 +6799,7 @@
         "poi_adi": "Has Mantı",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 289.0,
+        "mesafe_m": 289,
         "mesafe_km": 0.29,
         "sure_sn": 208.1,
         "sure_dk": 3.5
@@ -7009,7 +7009,7 @@
         "poi_adi": "Sihirli Spatula Pasta Cafe",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 892.0,
+        "mesafe_m": 892,
         "mesafe_km": 0.89,
         "sure_sn": 642.2,
         "sure_dk": 10.7
@@ -7177,10 +7177,10 @@
         "poi_adi": "End Coffee",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 419.0,
+        "mesafe_m": 419,
         "mesafe_km": 0.42,
         "sure_sn": 301.7,
-        "sure_dk": 5.0
+        "sure_dk": 5
       },
       "geometry": {
         "type": "Point",
@@ -7200,7 +7200,7 @@
         "alt_kategori": "Kafe & Restaurant",
         "mesafe_m": 855.6,
         "mesafe_km": 0.86,
-        "sure_sn": 616.0,
+        "sure_sn": 616,
         "sure_dk": 10.3
       },
       "geometry": {
@@ -7240,10 +7240,10 @@
         "poi_adi": "Kukiş Bahçe Cafe",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 582.0,
+        "mesafe_m": 582,
         "mesafe_km": 0.58,
         "sure_sn": 419.1,
-        "sure_dk": 7.0
+        "sure_dk": 7
       },
       "geometry": {
         "type": "Point",
@@ -7261,7 +7261,7 @@
         "poi_adi": "Ticket Restaurant",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 1010.0,
+        "mesafe_m": 1010,
         "mesafe_km": 1.01,
         "sure_sn": 727.2,
         "sure_dk": 12.1
@@ -7345,10 +7345,10 @@
         "poi_adi": "Toccare Cafe & Restaurant",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 749.0,
+        "mesafe_m": 749,
         "mesafe_km": 0.75,
         "sure_sn": 539.2,
-        "sure_dk": 9.0
+        "sure_dk": 9
       },
       "geometry": {
         "type": "Point",
@@ -7387,10 +7387,10 @@
         "poi_adi": "7D Unlu Mamüller ",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 585.0,
+        "mesafe_m": 585,
         "mesafe_km": 0.58,
         "sure_sn": 421.2,
-        "sure_dk": 7.0
+        "sure_dk": 7
       },
       "geometry": {
         "type": "Point",
@@ -7515,7 +7515,7 @@
         "alt_kategori": "Kafe & Restaurant",
         "mesafe_m": 1058.4,
         "mesafe_km": 1.06,
-        "sure_sn": 762.0,
+        "sure_sn": 762,
         "sure_dk": 12.7
       },
       "geometry": {
@@ -7534,7 +7534,7 @@
         "poi_adi": "Caribou Coffee",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 869.0,
+        "mesafe_m": 869,
         "mesafe_km": 0.87,
         "sure_sn": 625.7,
         "sure_dk": 10.4
@@ -7705,7 +7705,7 @@
         "mesafe_m": 1086.3,
         "mesafe_km": 1.09,
         "sure_sn": 782.1,
-        "sure_dk": 13.0
+        "sure_dk": 13
       },
       "geometry": {
         "type": "Point",
@@ -7746,7 +7746,7 @@
         "alt_kategori": "Kafe & Restaurant",
         "mesafe_m": 1695.8,
         "mesafe_km": 1.7,
-        "sure_sn": 1221.0,
+        "sure_sn": 1221,
         "sure_dk": 20.3
       },
       "geometry": {
@@ -7809,7 +7809,7 @@
         "alt_kategori": "Kafe & Restaurant",
         "mesafe_m": 716.8,
         "mesafe_km": 0.72,
-        "sure_sn": 516.0,
+        "sure_sn": 516,
         "sure_dk": 8.6
       },
       "geometry": {
@@ -8019,8 +8019,8 @@
         "alt_kategori": "Kafe & Restaurant",
         "mesafe_m": 829.2,
         "mesafe_km": 0.83,
-        "sure_sn": 597.0,
-        "sure_dk": 10.0
+        "sure_sn": 597,
+        "sure_dk": 10
       },
       "geometry": {
         "type": "Point",
@@ -8059,10 +8059,10 @@
         "poi_adi": "Natura Hamur Ürünleri ve Ev Yemekleri",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 1251.0,
+        "mesafe_m": 1251,
         "mesafe_km": 1.25,
         "sure_sn": 900.7,
-        "sure_dk": 15.0
+        "sure_dk": 15
       },
       "geometry": {
         "type": "Point",
@@ -8080,7 +8080,7 @@
         "poi_adi": "Ayzek Kahvaltı Kafe",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 1095.0,
+        "mesafe_m": 1095,
         "mesafe_km": 1.1,
         "sure_sn": 788.4,
         "sure_dk": 13.1
@@ -8229,7 +8229,7 @@
         "alt_kategori": "Kafe & Restaurant",
         "mesafe_m": 754.2,
         "mesafe_km": 0.75,
-        "sure_sn": 543.0,
+        "sure_sn": 543,
         "sure_dk": 9.1
       },
       "geometry": {
@@ -8355,7 +8355,7 @@
         "alt_kategori": "Kafe & Restaurant",
         "mesafe_m": 763.8,
         "mesafe_km": 0.76,
-        "sure_sn": 550.0,
+        "sure_sn": 550,
         "sure_dk": 9.2
       },
       "geometry": {
@@ -8439,7 +8439,7 @@
         "alt_kategori": "Kafe & Restaurant",
         "mesafe_m": 509.7,
         "mesafe_km": 0.51,
-        "sure_sn": 367.0,
+        "sure_sn": 367,
         "sure_dk": 6.1
       },
       "geometry": {
@@ -8502,7 +8502,7 @@
         "alt_kategori": "Kafe & Restaurant",
         "mesafe_m": 991.6,
         "mesafe_km": 0.99,
-        "sure_sn": 714.0,
+        "sure_sn": 714,
         "sure_dk": 11.9
       },
       "geometry": {
@@ -8542,7 +8542,7 @@
         "poi_adi": "Gia Restaurant",
         "kategori": "Sosyal&Kültürel",
         "alt_kategori": "Kafe & Restaurant",
-        "mesafe_m": 1055.0,
+        "mesafe_m": 1055,
         "mesafe_km": 1.05,
         "sure_sn": 759.6,
         "sure_dk": 12.7
@@ -8565,7 +8565,7 @@
         "alt_kategori": "Kafe & Restaurant",
         "mesafe_m": 712.6,
         "mesafe_km": 0.71,
-        "sure_sn": 513.0,
+        "sure_sn": 513,
         "sure_dk": 8.6
       },
       "geometry": {
@@ -8586,7 +8586,7 @@
         "alt_kategori": "Kafe & Restaurant",
         "mesafe_m": 565.2,
         "mesafe_km": 0.57,
-        "sure_sn": 407.0,
+        "sure_sn": 407,
         "sure_dk": 6.8
       },
       "geometry": {
@@ -8629,7 +8629,7 @@
         "mesafe_m": 914.9,
         "mesafe_km": 0.91,
         "sure_sn": 658.7,
-        "sure_dk": 11.0
+        "sure_dk": 11
       },
       "geometry": {
         "type": "Point",
@@ -8734,7 +8734,7 @@
         "mesafe_m": 414.6,
         "mesafe_km": 0.41,
         "sure_sn": 298.5,
-        "sure_dk": 5.0
+        "sure_dk": 5
       },
       "geometry": {
         "type": "Point",
@@ -8859,7 +8859,7 @@
         "alt_kategori": "Kültür Merkezi",
         "mesafe_m": 712.6,
         "mesafe_km": 0.71,
-        "sure_sn": 513.0,
+        "sure_sn": 513,
         "sure_dk": 8.6
       },
       "geometry": {
@@ -9256,7 +9256,7 @@
         "poi_adi": "Nursena Eczanesi",
         "kategori": "Sağlık",
         "alt_kategori": "Eczane",
-        "mesafe_m": 804.0,
+        "mesafe_m": 804,
         "mesafe_km": 0.8,
         "sure_sn": 578.9,
         "sure_dk": 9.6
@@ -9295,7 +9295,7 @@
       "properties": {
         "ada_parsel": "1103-8",
         "poi_id": "213",
-        "poi_adi": "",
+        "poi_adi": "Hasan Tan İlkokulu",
         "kategori": "Eğitim",
         "alt_kategori": "İlkokul",
         "mesafe_m": 615.8,
@@ -9316,7 +9316,7 @@
       "properties": {
         "ada_parsel": "1103-8",
         "poi_id": "214",
-        "poi_adi": "",
+        "poi_adi": "Mihriban Suat Bedük İlkokulu",
         "kategori": "Eğitim",
         "alt_kategori": "İlkokul",
         "mesafe_m": 115.1,
@@ -9337,10 +9337,10 @@
       "properties": {
         "ada_parsel": "1103-8",
         "poi_id": "215",
-        "poi_adi": "",
+        "poi_adi": "ÖZEL ACIBADEM İLKOKULU",
         "kategori": "Eğitim",
         "alt_kategori": "İlkokul",
-        "mesafe_m": 229.0,
+        "mesafe_m": 229,
         "mesafe_km": 0.23,
         "sure_sn": 164.9,
         "sure_dk": 2.7
@@ -9358,12 +9358,12 @@
       "properties": {
         "ada_parsel": "1103-8",
         "poi_id": "216",
-        "poi_adi": "",
+        "poi_adi": "ÖZEL ACIBADEM Ortaokulu",
         "kategori": "Eğitim",
         "alt_kategori": "Ortaokul",
         "mesafe_m": 1022.3,
         "mesafe_km": 1.02,
-        "sure_sn": 736.0,
+        "sure_sn": 736,
         "sure_dk": 12.3
       },
       "geometry": {
@@ -9379,7 +9379,7 @@
       "properties": {
         "ada_parsel": "1103-8",
         "poi_id": "217",
-        "poi_adi": "",
+        "poi_adi": "Özel Bilfen Koşuyolu İlkokulu",
         "kategori": "Eğitim",
         "alt_kategori": "İlkokul",
         "mesafe_m": 953.7,
@@ -9400,7 +9400,7 @@
       "properties": {
         "ada_parsel": "1103-8",
         "poi_id": "218",
-        "poi_adi": "",
+        "poi_adi": "Özel Bilfen Koşuyolu Ortaokulu",
         "kategori": "Eğitim",
         "alt_kategori": "Ortaokul",
         "mesafe_m": 979.4,
@@ -9421,7 +9421,7 @@
       "properties": {
         "ada_parsel": "1103-8",
         "poi_id": "219",
-        "poi_adi": "",
+        "poi_adi": "Acıbadem Türk Telekom Ortaokulu",
         "kategori": "Eğitim",
         "alt_kategori": "Ortaokul",
         "mesafe_m": 608.2,
@@ -9442,7 +9442,7 @@
       "properties": {
         "ada_parsel": "1103-8",
         "poi_id": "220",
-        "poi_adi": "",
+        "poi_adi": "Birey Eğitim Kurumları",
         "kategori": "Eğitim",
         "alt_kategori": "Lise",
         "mesafe_m": 644.6,
@@ -9463,7 +9463,7 @@
       "properties": {
         "ada_parsel": "1103-8",
         "poi_id": "221",
-        "poi_adi": "",
+        "poi_adi": "Validebağ Koleji",
         "kategori": "Eğitim",
         "alt_kategori": "Ortaokul",
         "mesafe_m": 1343.6,
@@ -9484,10 +9484,10 @@
       "properties": {
         "ada_parsel": "1103-8",
         "poi_id": "222",
-        "poi_adi": "",
+        "poi_adi": "ÖZEL MERAK EDEN ÇOCUK KOŞUYOLU Ortaokulu",
         "kategori": "Eğitim",
         "alt_kategori": "Ortaokul",
-        "mesafe_m": 969.0,
+        "mesafe_m": 969,
         "mesafe_km": 0.97,
         "sure_sn": 697.6,
         "sure_dk": 11.6
@@ -9505,7 +9505,7 @@
       "properties": {
         "ada_parsel": "1103-8",
         "poi_id": "223",
-        "poi_adi": "",
+        "poi_adi": "ÖZEL MERAK EDEN ÇOCUK KOŞUYOLU İlkokulu",
         "kategori": "Eğitim",
         "alt_kategori": "İlkokul",
         "mesafe_m": 968.2,
@@ -9526,7 +9526,7 @@
       "properties": {
         "ada_parsel": "1103-8",
         "poi_id": "224",
-        "poi_adi": "",
+        "poi_adi": "Özel Acıbadem Sınav Anadolu Lisesi",
         "kategori": "Eğitim",
         "alt_kategori": "Lise",
         "mesafe_m": 446.5,
@@ -9636,7 +9636,7 @@
         "alt_kategori": "Kreş & Anaokulu",
         "mesafe_m": 961.1,
         "mesafe_km": 0.96,
-        "sure_sn": 692.0,
+        "sure_sn": 692,
         "sure_dk": 11.5
       },
       "geometry": {
