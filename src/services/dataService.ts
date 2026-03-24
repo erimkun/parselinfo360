@@ -70,6 +70,7 @@ export interface ProjectOverview {
         adaParsel: string;
         tapuAlani: string;
         imarDurumu: string;
+        tapuMahalle?: string;
     };
     image?: string;
     firmaAdi?: string;
@@ -178,7 +179,8 @@ export const dataService = {
                 parcelInfo: {
                     adaParsel: `${props.Ada || displayId.split('_')[0]} / ${props.parsel || displayId.split('_')[1]}`,
                     tapuAlani: `${props.Alan} m²`,
-                    imarDurumu: String(props.Nitelik || 'Konut')
+                    imarDurumu: String(props.Nitelik || 'Konut'),
+                    tapuMahalle: props.tapu_mahalle ? String(props.tapu_mahalle) : undefined
                 },
                 image: `/data/project_pics/${displayId}.png`,
                 // Ek firma bilgisi

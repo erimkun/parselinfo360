@@ -149,6 +149,12 @@ export const OverviewView: React.FC = () => {
                         <span className="text-[11px] text-blue-700/80 dark:text-blue-300 uppercase tracking-wider font-bold">İmar Durumu</span>
                         <span className="font-mono font-bold text-sm text-blue-900 dark:text-blue-100">{project.parcelInfo.imarDurumu}</span>
                     </div>
+                    {project.parcelInfo.tapuMahalle && (
+                        <div className="flex justify-between items-center p-2 rounded-lg hover:bg-blue-100/50 dark:hover:bg-blue-500/5 transition-colors border-t border-blue-100 dark:border-blue-800/30">
+                            <span className="text-[11px] text-blue-700/80 dark:text-blue-300 uppercase tracking-wider font-bold">Tapu Mahallesi</span>
+                            <span className="font-mono font-bold text-sm text-blue-900 dark:text-blue-100">{project.parcelInfo.tapuMahalle}</span>
+                        </div>
+                    )}
                 </div>
             </div>
 

@@ -6,7 +6,7 @@
       "type": "Feature",
       "properties": {
         "OBJECTID": 1,
-        "Name": "Bulgurlu Mahallesi 1101-ada-8-parsel",
+        "Name": "Acıbadem Mahallesi 1101-ada-8-parsel",
         "ilce": "Üsküdar",
         "parsel": "8",
         "Pafta": "76",
@@ -23,7 +23,8 @@
         "ada_parsel": "1101-8",
         "proje_nitelik": null,
         "rayic_2025": 27994,
-        "rayic_sokak_adi": "Günal Sokak"
+        "rayic_sokak_adi": "Günal Sokak",
+        "tapu_mahalle": "Bulgurlu"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -63,12 +64,12 @@
       "type": "Feature",
       "properties": {
         "OBJECTID": 1,
-        "Name": "Bulgurlu Mahallesi 1103 ada 8 parsel",
+        "Name": "Acıbadem Mahallesi 1103-ada-8-parsel",
         "ilce": "Üsküdar",
         "parsel": "8",
         "Pafta": "76",
         "Nitelik": "Bahçeli Kargir Apartman",
-        "Mahalle": "Bulgurlu",
+        "Mahalle": "Acıbadem",
         "Ada": 1103,
         "Alan": "876,00",
         "Shape_Length": 0.0010873109097635145,
@@ -79,7 +80,8 @@
         "proje_tipi": null,
         "ada_parsel": "1103-8",
         "proje_nitelik": null,
-        "ADA_PARSEL": "1103/8"
+        "ADA_PARSEL": "1103/8",
+        "tapu_mahalle": "Bulgurlu"
       },
       "geometry": {
         "type": "MultiPolygon",
