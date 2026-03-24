@@ -49,5 +49,9 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4"
+  },
+  "overrides": {
+    "fast-xml-parser": "^5.5.9",
+    "flatted": "^3.3.2"
   }
 }
