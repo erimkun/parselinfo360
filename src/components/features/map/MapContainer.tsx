@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTheme } from '../../../contexts/ThemeContext';
+import { cn } from '../../../lib/utils';
 
 // Lazy load TripLayerOverlay - deck.gl paketleri büyük olduğu için
 const TripLayerOverlay = React.lazy(() =>
@@ -75,6 +76,7 @@ import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 delete (Icon.Default.prototype as any)._getIconUrl;
 Icon.Default.mergeOptions({
     iconRetinaUrl: markerIcon2x,
@@ -84,15 +86,19 @@ Icon.Default.mergeOptions({
 
 interface MapContainerProps {
     data: any[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     boundary?: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     projectParcel?: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     serviceArea?: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     neighborhoods?: any;
     mobileView?: 'sidebar' | 'map';
 }
 
 // Icon Mapping Strategy (Smaller Icons)
-const getIconForFeature = (feature: any) => {
+const getIconForFeature = (feature: { properties?: Record<string, any> }) => {
     // Combine all potential category fields for robust matching
     // The new data uses 'kategori' and 'alt_kategori', while old data used 'kategori_a'/'kategori_app'
     const props = feature.properties || {};
@@ -190,6 +196,7 @@ const MapFocusController = ({ center, trigger }: { center: [number, number], tri
 };
 
 // Initial fit to project parcel bounds
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MapInitialFit = ({ projectParcel }: { projectParcel?: any }) => {
     const map = useMap();
     const hasFit = React.useRef(false);
@@ -238,6 +245,7 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
                     : firstFeature.geometry.coordinates[0][0];
 
                 let sumLat = 0, sumLng = 0;
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 coords.forEach((c: any) => { sumLng += c[0]; sumLat += c[1]; });
                 return [sumLat / coords.length, sumLng / coords.length] as [number, number];
             }
@@ -429,7 +437,9 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
 
                 {/* Service Area Layers (5, 10, 15 min walking) */}
                 {serviceAreaVisible && serviceArea && serviceArea.features && (
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     <React.Fragment key={`service-area-group-${serviceArea.features.map((f: any) => f.properties?.AA_MINS).join('-')}`}>
+                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                         {serviceArea.features.map((feature: any, idx: number) => {
                             const mins = feature.properties?.AA_MINS || 15;
                             // Neon yeşil (LED gibi parlak) - 5'e doğru gittikçe daha doygun, 15'e doğru gittikçe daha soluk
@@ -461,7 +471,7 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
                                         lineJoin: 'round'
                                     }}
                                     /* onEachFeature may be passed as a separate prop rather than inside eventHandlers */
-                                    onEachFeature={(feature: any, layer: any) => {
+                                    onEachFeature={(_feature, layer) => {
                                         // Animasyonlu glow efekti için custom class ekle
                                         if (layer instanceof L.Path) {
                                             layer.setStyle({
@@ -634,7 +644,7 @@ export const MapContainer = ({ data, boundary, projectParcel, serviceArea, neigh
                                     { icon: Theater, color: 'bg-indigo-500', hover: 'hover:bg-indigo-500/10', label: 'Sosyal/Kültür', cat: 'social' },
                                     { icon: Home, color: 'bg-teal-500', hover: 'hover:bg-teal-500/10', label: 'Yaşam/Konut', cat: 'life' },
                                     { icon: Leaf, color: 'bg-green-500', hover: 'hover:bg-green-500/10', label: 'Yeşil Alan', cat: 'life' },
-                                ] as { icon: any; color: string; hover: string; label: string; cat: string }[]).map(({ icon: IconComp, color, hover, label, cat }) => {
+                                ] as { icon: React.ElementType; color: string; hover: string; label: string; cat: string }[]).map(({ icon: IconComp, color, hover, label, cat }) => {
                                     const hidden = hiddenCategories.has(cat);
                                     return (
                                         <div

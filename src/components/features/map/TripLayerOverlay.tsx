@@ -6,6 +6,7 @@ import { ScatterplotLayer, PathLayer, TextLayer } from '@deck.gl/layers';
 import { X, Play, Pause, RotateCcw } from 'lucide-react';
 import { useTheme } from '../../../contexts/ThemeContext';
 import { useCompany } from '../../../contexts/CompanyContext';
+import { cn } from '../../../lib/utils';
 
 interface Route {
     id: number;
@@ -31,6 +32,7 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
     const map = useMap();
     const { theme } = useTheme();
     const { adaParsel } = useCompany();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const deckRef = useRef<any>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const animationRef = useRef<number>(0);
@@ -65,7 +67,7 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
         };
     }, [isOpen, map, adaParsel]);
 
-    // Get current view state from Leaflet
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const getViewState = useCallback(() => {
         const center = map.getCenter();
         const zoom = map.getZoom();
@@ -158,6 +160,7 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
         if (!deckRef.current || routes.length === 0) return;
 
         const LINE_WIDTH = 6;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const layers: any[] = [];
 
         // Start point
@@ -473,7 +476,7 @@ export const TripLayerOverlay: React.FC<TripLayerOverlayProps> = ({ isOpen, onCl
                         )}
                         onMouseEnter={() => map.scrollWheelZoom.disable()}
                         onMouseLeave={() => map.scrollWheelZoom.enable()}
-                        onWheel={(e) => e.stopPropagation()}
+                        onWheel={(event) => event.stopPropagation()}
                     >
                         {routes.map((route, i) => (
                             <button

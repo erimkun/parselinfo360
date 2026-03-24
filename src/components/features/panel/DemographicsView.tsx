@@ -45,7 +45,7 @@ export const DemographicsView: React.FC = () => {
         let totalMen = 0;
         let totalWomen = 0;
         let totalDensity = 0;
-        let weightedIndexSum = { genc: 0, aile: 0, yas50: 0 };
+        const weightedIndexSum = { genc: 0, aile: 0, yas50: 0 };
         let count = 0;
 
         const ageGroups: Record<string, number> = {
